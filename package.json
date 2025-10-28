@@ -1,0 +1,33 @@
+{
+  "name": "@vitalfit/sdk",
+  "version": "0.0.30",
+  "description": "VitalFit Core API SDK",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "homepage": "https://github.com/VitalFitTeam/vitalfit-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitalFitTeam/vitalfit-sdk.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "vitalfitdcyt <vitalfitdcyt@gmail.com>",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "axios": "^1.12.2"
+  }
+}
