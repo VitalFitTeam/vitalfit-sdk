@@ -7,6 +7,9 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import parser from '@typescript-eslint/parser'; // Import the parser directly
 
 export default [
+  {
+    ignores: ['dist/**'], // Ignore the dist directory
+  },
   // Base configuration for all files
   {
     // Define the parser and language options
