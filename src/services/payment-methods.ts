@@ -11,7 +11,7 @@ export class PaymentMethodService {
 
   async getPaymentMethods(jwt: string): Promise<DataResponse<PaymentMethod[]>> {
     const response = await this.client.get({
-      url: '/branches/payment-methods',
+      url: '/billing/payment-methods',
       jwt,
     });
     return response as unknown as DataResponse<PaymentMethod[]>;
