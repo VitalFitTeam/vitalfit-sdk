@@ -76,3 +76,26 @@ export type CreateBranchRequest = {
   status: string;
   tax_id: string;
 };
+
+export type UpdateOperatingHour = {
+  day_of_week: string;
+  open_time: string;
+  close_time: string;
+  is_closed: boolean;
+};
+
+export type UpdateBranchRequest = {
+  address: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  manager_id: string;
+  max_capacity: number;
+  name: string;
+  operating_hours: UpdateOperatingHour[]
+  payment_methods: string[]; 
+  phone: string;
+  state: string;
+  status: "Active" | "Inactive" | "Maintenance"; 
+  tax_id: string;
+};

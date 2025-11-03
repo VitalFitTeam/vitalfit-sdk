@@ -30,9 +30,9 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.0.30';
+    return '0.0.34'
   }
 }
 
-export * from './types';
-export * from './errors';
+export * from './types'
+export * from './errors'  
