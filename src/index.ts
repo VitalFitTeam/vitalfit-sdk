@@ -20,7 +20,6 @@ export class VitalFit {
     this.user= new UserService(this.client)
     this.branch= new BranchService(this.client)
     this.paymentMethod= new PaymentMethodService(this.client) 
-    
   }
 
   static getInstance(isDevMode = false): VitalFit {
@@ -31,7 +30,7 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.0.30'
+    return '0.0.34'
   }
 }
 
