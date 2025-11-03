@@ -92,10 +92,10 @@ export type UpdateBranchRequest = {
   manager_id: string;
   max_capacity: number;
   name: string;
-  operating_hours: UpdateOperatingHour[]
-  payment_methods: string[]; 
+  operating_hours: UpdateOperatingHour[];
+  payment_methods: string[];
   phone: string;
   state: string;
-  status: "Active" | "Inactive" | "Maintenance"; 
+  status: 'Active' | 'Inactive' | 'Maintenance';
   tax_id: string;
 };

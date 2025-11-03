@@ -17,21 +17,16 @@ export class UserService {
   }
 
   async getStaffUsers(
-    { page = 1, limit = 10, sort, search, role }: UserPaginationOptions,
+    { search, role }: UserPaginationOptions,
     jwt: string,
   ): Promise<DataResponse<User[]>> {
-    const paramsToSend = {
-      page,
-      limit,
-      sort,
-      search,
-      role,
-    };
-
     const response = await this.client.get({
       url: '/user/users',
       jwt,
-      params: paramsToSend,
+      params: {
+        search,
+        role,
+      },
     });
 
     return response as unknown as DataResponse<User[]>;
