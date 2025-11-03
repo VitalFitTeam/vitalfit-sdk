@@ -41,3 +41,11 @@ export type User = {
 export type UserApiResponse = {
   user: User;
 };
+
+export type UserPaginationOptions = {
+  limit?: number;
+  page?: number;
+  sort?: 'asc' | 'desc';
+  search?: string;
+  role?: string;
+};
