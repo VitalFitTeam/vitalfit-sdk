@@ -5,6 +5,7 @@ import type {
   PaginatedInstructor,
   InstructorData,
   Specialty,
+  BranchInstructorInfo,
 } from '@/types';
 import { Client } from '../client';
 
@@ -20,6 +21,10 @@ export class InstructorService {
     this.deleteInstructor = this.deleteInstructor.bind(this);
     this.addSpecialty = this.addSpecialty.bind(this);
     this.removeSpecialty = this.removeSpecialty.bind(this);
+
+    this.addBranchInstructor = this.addBranchInstructor.bind(this);
+    this.removeBranchInstructor = this.removeBranchInstructor.bind(this);
+    this.getBranchInstructors = this.getBranchInstructors.bind(this);
   }
 
   async getInstructors(
@@ -101,5 +106,40 @@ export class InstructorService {
       url: `/instructor/${instructorId}/specialty/${specialtyId}`,
       jwt,
     });
+  }
+
+  async addBranchInstructor(
+    branchId: string,
+    instructorIDs: string[],
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/branches/${branchId}/instructors`,
+      jwt,
+      data: {
+        instructors: instructorIDs,
+      },
+    });
+  }
+  async removeBranchInstructor(
+    branchId: string,
+    instructorId: string,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.delete({
+      url: `/branches/${branchId}/instructors/${instructorId}`,
+      jwt,
+    });
+  }
+
+  async getBranchInstructors(
+    branchId: string,
+    jwt: string,
+  ): Promise<DataResponse<BranchInstructorInfo[]>> {
+    const response = await this.client.get({
+      url: `/branches/${branchId}/instructors`,
+      jwt,
+    });
+    return response as unknown as DataResponse<BranchInstructorInfo[]>;
   }
 }

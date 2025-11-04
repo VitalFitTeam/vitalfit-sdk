@@ -50,3 +50,10 @@ export type Instructor = {
 export type PaginatedInstructor = PaginationRequest & {
   identity_doc?: string;
 };
+
+export type BranchInstructorInfo = {
+  email: string;
+  name: string;
+  phone: string;
+  instructorID: string;
+};
