@@ -17,3 +17,58 @@ export type CreatePaymentMethod = {
   processing_type: 'Gateway' | 'Offline';
   type: 'Cash' | 'Card' | 'Transfer' | 'Other';
 };
+
+export type ZelleConfig = {
+  email: string;
+};
+
+export type BankTransferConfig = {
+  bank_name: string;
+  account_number: string;
+  tax_id: string;
+};
+
+export type PagoMovilConfig = {
+  phone: string;
+  bank_id: string;
+  tax_id: string;
+};
+
+export type BranchPaymentVisibility = 'Client' | 'Staff' | 'All';
+
+export type PaymentConfiguration =
+  | ZelleConfig
+  | BankTransferConfig
+  | PagoMovilConfig
+  | Record<string, any>;
+
+export type BranchPaymentMethod = {
+  branch_id: string;
+  configuration: PaymentConfiguration;
+  created_at: string;
+  display_name: string;
+  is_active: boolean;
+  method_id: string;
+  surcharge_fixed: number;
+  surcharge_percentage: number;
+  updated_at: string;
+  visibility: BranchPaymentVisibility;
+};
+
+export type CreateBranchPaymentMethod = {
+  configuration: PaymentConfiguration;
+  display_name: string;
+  method_id: string;
+  surcharge_fixed: number;
+  surcharge_percentage: number;
+  visibility: BranchPaymentVisibility;
+};
+
+export type UpdateBranchPaymentMethod = {
+  configuration?: PaymentConfiguration;
+  display_name?: string;
+  is_active?: boolean;
+  surcharge_fixed?: number;
+  surcharge_percentage?: number;
+  visibility?: BranchPaymentVisibility;
+};
