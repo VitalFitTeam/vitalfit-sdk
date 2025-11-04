@@ -12,15 +12,6 @@ export type PaginatedBranch = {
   status: 'Active' | 'Inactive' | 'Maintenance';
 };
 
-export type BranchPaymentMethod = {
-  branch_id: string;
-  method_id: string;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-  method: PaymentMethod;
-};
-
 export type OperatingHour = {
   hour_id?: string;
   day_of_week: string;
@@ -46,7 +37,6 @@ export type BranchDetails = {
   manager_first_name: string;
   manager_last_name: string;
   operating_hours: OperatingHour[];
-  payment_methods: BranchPaymentMethod[];
 };
 
 export type BranchStatusCount = {
