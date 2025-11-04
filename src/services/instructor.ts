@@ -80,12 +80,15 @@ export class InstructorService {
 
   async addSpecialty(
     instructorId: string,
-    specialty: Specialty,
+    specialty: Specialty[],
     jwt: string,
   ): Promise<void> {
     await this.client.post({
       url: `/instructor/${instructorId}/specialty`,
       jwt,
+      data: {
+        specialties: specialty,
+      },
     });
   }
 
