@@ -1,6 +1,7 @@
 export enum UserGender {
   male = 'male',
   female = 'female',
+  preferNotToSay = 'prefer-not-to-say',
 }
 
 export type LoginRequest = {
