@@ -23,3 +23,20 @@ export type CreateEquipment = Omit<
 >;
 
 export type UpdateEquipment = Partial<CreateEquipment>;
+
+export type EquipmentStatus = 'Available' | 'InMaintenance' | 'OutOfService';
+
+export type CreateBranchEquipment = {
+  acquisition_date: string;
+  equipment_id: string;
+  last_maintenance_date: string;
+  notes: string;
+  serial_number: string;
+  status: EquipmentStatus;
+};
+
+export type UpdateBranchEquipmentDetails = {
+  last_maintenance_date?: string;
+  notes?: string;
+  status?: EquipmentStatus;
+};

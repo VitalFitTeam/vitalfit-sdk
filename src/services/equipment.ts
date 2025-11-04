@@ -1,7 +1,9 @@
 import type {
+  CreateBranchEquipment,
   CreateEquipment,
   DataResponse,
   Equipment,
+  UpdateBranchEquipmentDetails,
   UpdateEquipment,
 } from '@/types';
 import { Client } from '../client';
@@ -15,6 +17,11 @@ export class EquipmentService {
     this.createEquipment = this.createEquipment.bind(this);
     this.updateEquipment = this.updateEquipment.bind(this);
     this.deleteEquipment = this.deleteEquipment.bind(this);
+
+    this.getBranchEquipment = this.getBranchEquipment.bind(this);
+    this.addBranchEquipment = this.addBranchEquipment.bind(this);
+    this.removeBranchEquipment = this.removeBranchEquipment.bind(this);
+    this.updateBranchEquipment = this.updateBranchEquipment.bind(this);
   }
 
   async getEquipment(jwt: string): Promise<DataResponse<Equipment[]>> {
@@ -49,6 +56,55 @@ export class EquipmentService {
     await this.client.delete({
       url: `/equipment-types/${equipmentId}`,
       jwt,
+    });
+  }
+
+  async getBranchEquipment(
+    branchId: string,
+    jwt: string,
+  ): Promise<DataResponse<Equipment[]>> {
+    const response = await this.client.get({
+      url: `/branches/${branchId}/equipment`,
+      jwt,
+    });
+    return response as unknown as DataResponse<Equipment[]>;
+  }
+
+  async addBranchEquipment(
+    branchId: string,
+    equipmentData: CreateBranchEquipment,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/branches/${branchId}/equipment`,
+      jwt,
+      data: {
+        equipment: equipmentData,
+      },
+    });
+  }
+
+  async removeBranchEquipment(
+    branchId: string,
+    equipmentId: string,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.delete({
+      url: `/branches/${branchId}/equipment/${equipmentId}`,
+      jwt,
+    });
+  }
+
+  async updateBranchEquipment(
+    branchId: string,
+    equipmentId: string,
+    data: UpdateBranchEquipmentDetails,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.patch({
+      url: `/branches/${branchId}/equipment/${equipmentId}`,
+      jwt,
+      data: data,
     });
   }
 }

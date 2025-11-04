@@ -38,7 +38,7 @@ export class ProductsService {
 
   async getServices(jwt: string): Promise<DataResponse<ServiceFullDetail[]>> {
     const response = await this.client.get({
-      url: '/services',
+      url: '/services/all',
       jwt,
     });
     return response as unknown as DataResponse<ServiceFullDetail[]>;
