@@ -7,6 +7,7 @@ import {
   InstructorService,
   RBACService,
   MembershipService,
+  PublicService,
 } from './services';
 import { MarketingService } from './services/marketing';
 
@@ -21,6 +22,7 @@ export class VitalFit {
   RBAC: RBACService;
   marketing: MarketingService;
   membership: MembershipService;
+  public: PublicService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -32,6 +34,7 @@ export class VitalFit {
     this.RBAC = new RBACService(this.client);
     this.marketing = new MarketingService(this.client);
     this.membership = new MembershipService(this.client);
+    this.public = new PublicService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
