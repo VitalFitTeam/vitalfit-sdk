@@ -103,7 +103,7 @@ export class AuthService {
     password: string,
     repeatPassword: string,
   ): Promise<void> {
-    await this.client.post({
+    await this.client.put({
       url: `/auth/activate/${token}`,
       data: {
         password,
