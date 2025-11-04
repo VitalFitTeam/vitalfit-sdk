@@ -10,6 +10,7 @@ import {
   PublicService,
 } from './services';
 import { MarketingService } from './services/marketing';
+import { ProductsService } from './services/products';
 
 export class VitalFit {
   private static instance: VitalFit;
@@ -23,6 +24,7 @@ export class VitalFit {
   marketing: MarketingService;
   membership: MembershipService;
   public: PublicService;
+  products: ProductsService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -35,6 +37,7 @@ export class VitalFit {
     this.marketing = new MarketingService(this.client);
     this.membership = new MembershipService(this.client);
     this.public = new PublicService(this.client);
+    this.products = new ProductsService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
