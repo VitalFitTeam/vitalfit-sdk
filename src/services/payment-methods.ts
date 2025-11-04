@@ -1,5 +1,12 @@
 import { Client } from '../client';
-import type { CreatePaymentMethod, DataResponse, PaymentMethod } from '@/types';
+import type {
+  BranchPaymentMethod,
+  CreateBranchPaymentMethod,
+  CreatePaymentMethod,
+  DataResponse,
+  PaymentMethod,
+  UpdateBranchPaymentMethod,
+} from '@/types';
 
 export class PaymentMethodService {
   private client: Client;
@@ -11,6 +18,11 @@ export class PaymentMethodService {
     this.createPaymentMethod = this.createPaymentMethod.bind(this);
     this.updatePaymentMethod = this.updatePaymentMethod.bind(this);
     this.deletePaymentMethod = this.deletePaymentMethod.bind(this);
+
+    this.addBranchPaymentMethod = this.addBranchPaymentMethod.bind(this);
+    this.removeBranchPaymentMethod = this.removeBranchPaymentMethod.bind(this);
+    this.getBranchPaymentMethods = this.getBranchPaymentMethods.bind(this);
+    this.updateBranchPaymentMethod = this.updateBranchPaymentMethod.bind(this);
   }
 
   async getPaymentMethods(jwt: string): Promise<DataResponse<PaymentMethod[]>> {
@@ -61,6 +73,53 @@ export class PaymentMethodService {
     await this.client.delete({
       url: `/billing/payment-methods/${paymentMethodId}`,
       jwt,
+    });
+  }
+
+  async addBranchPaymentMethod(
+    branchId: string,
+    paymentMethodData: CreateBranchPaymentMethod[],
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/branches/${branchId}/payment-methods`,
+      jwt,
+      data: paymentMethodData,
+    });
+  }
+
+  async getBranchPaymentMethods(
+    branchId: string,
+    jwt: string,
+  ): Promise<DataResponse<BranchPaymentMethod[]>> {
+    const response = await this.client.get({
+      url: `/branches/${branchId}/payment-methods`,
+      jwt,
+    });
+    return response as unknown as DataResponse<BranchPaymentMethod[]>;
+  }
+
+  async removeBranchPaymentMethod(
+    branchId: string,
+    paymentMethodId: string,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.delete({
+      url: `/branches/${branchId}/payment-methods/${paymentMethodId}`,
+      jwt,
+    });
+  }
+
+  async updateBranchPaymentMethod(
+    branchId: string,
+    paymentMethodId: string,
+    data: UpdateBranchPaymentMethod,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.put({
+      url: `/branches/${branchId}/payment-methods/${paymentMethodId}`,
+      jwt,
+      data: data,
     });
   }
 }
