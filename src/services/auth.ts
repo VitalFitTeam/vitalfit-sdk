@@ -11,6 +11,7 @@ export class AuthService {
     this.forgotPassword = this.forgotPassword.bind(this);
     this.resetPassword = this.resetPassword.bind(this);
     this.verifyEmail = this.verifyEmail.bind(this);
+    this.verifyStaff = this.verifyStaff.bind(this);
 
     this.logout = this.logout.bind(this);
     this.saveJWT = this.saveJWT.bind(this);
@@ -93,6 +94,20 @@ export class AuthService {
       url: '/auth/activate',
       data: {
         otp,
+      },
+    });
+  }
+
+  async verifyStaff(
+    token: string,
+    password: string,
+    repeatPassword: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/auth/activate/${token}`,
+      data: {
+        password,
+        repeatPassword,
       },
     });
   }

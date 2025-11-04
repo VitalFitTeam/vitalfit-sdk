@@ -13,7 +13,6 @@ export type ClientProfile = {
 export type Role = {
   role_id: string;
   name: string;
-  level: number;
   description: string;
   created_at: string;
   updated_at: string;

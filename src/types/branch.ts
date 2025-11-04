@@ -70,7 +70,6 @@ export type CreateBranchRequest = {
   max_capacity: number;
   name: string;
   operating_hours: OperatingHour[];
-  payment_methods: string[];
   phone: string;
   state: string;
   status: string;

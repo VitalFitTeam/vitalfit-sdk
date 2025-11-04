@@ -5,6 +5,7 @@ import {
   BranchService,
   PaymentMethodService,
   InstructorService,
+  RBACService,
 } from './services';
 
 export class VitalFit {
@@ -15,6 +16,7 @@ export class VitalFit {
   branch: BranchService;
   paymentMethod: PaymentMethodService;
   instructor: InstructorService;
+  RBAC: RBACService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -23,6 +25,7 @@ export class VitalFit {
     this.branch = new BranchService(this.client);
     this.paymentMethod = new PaymentMethodService(this.client);
     this.instructor = new InstructorService(this.client);
+    this.RBAC = new RBACService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
