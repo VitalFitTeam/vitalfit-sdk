@@ -1,6 +1,5 @@
-import type { BranchInfo } from '@/types/public';
 import { Client } from '../client';
-import type { CreatePaymentMethod, DataResponse, PaymentMethod } from '@/types';
+import type { DataResponse, BranchInfo } from '@/types';
 
 export class PublicService {
   private client: Client;

@@ -1,10 +1,6 @@
 import type { Banner, CreateBanner, UpdateBanner } from '@/types';
 import { Client } from '../client';
-import type {
-  CreatePaymentMethod,
-  DataResponse,
-  PaymentMethod,
-} from '../types';
+import type { DataResponse } from '../types';
 
 export class MarketingService {
   private client: Client;
