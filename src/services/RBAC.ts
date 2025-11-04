@@ -77,13 +77,15 @@ export class RBACService {
   }
   async addPermission(
     roleId: string,
-    permissionData: Permission[],
+    permissionData: string[],
     jwt: string,
   ): Promise<void> {
     await this.client.post({
       url: `/admin/roles/${roleId}/permissions`,
       jwt,
-      data: permissionData,
+      data: {
+        permissions: permissionData,
+      },
     });
   }
   async removePermission(
