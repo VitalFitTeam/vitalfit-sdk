@@ -1,9 +1,5 @@
 import { Client } from '../client';
-import type {
-  CreatePaymentMethod,
-  DataResponse,
-  PaymentMethod,
-} from '../types';
+import type { CreatePaymentMethod, DataResponse, PaymentMethod } from '@/types';
 
 export class PaymentMethodService {
   private client: Client;

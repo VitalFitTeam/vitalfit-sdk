@@ -5,7 +5,7 @@ import type {
   PaymentMethod,
   Permission,
   RoleResponse,
-} from '../types';
+} from '@/types';
 
 export class RBACService {
   private client: Client;

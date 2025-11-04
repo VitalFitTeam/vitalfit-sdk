@@ -1,4 +1,4 @@
-import type { Banner, CreateBanner } from '@/types/marketing';
+import type { Banner, CreateBanner, UpdateBanner } from '@/types';
 import { Client } from '../client';
 import type {
   CreatePaymentMethod,
@@ -47,7 +47,7 @@ export class MarketingService {
 
   async updateBanner(
     BannerId: string,
-    BannerData: CreateBanner,
+    BannerData: UpdateBanner,
     jwt: string,
   ): Promise<void> {
     await this.client.put({

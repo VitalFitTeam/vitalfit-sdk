@@ -4,3 +4,5 @@ export * from './branch';
 export * from './payment-methods';
 export * from './instructor';
 export * from './RBAC';
+export * from './marketing';
+export * from './memberships';

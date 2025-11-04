@@ -1,5 +1,5 @@
 import { Client } from '../client';
-import type { LoginRequest, LoginResponse, SignUpRequest } from '../types';
+import type { LoginRequest, LoginResponse, SignUpRequest } from '@/types';
 
 export class AuthService {
   private client: Client;
