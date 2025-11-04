@@ -70,3 +70,29 @@ export type UpdateServiceManual = {
   priority?: number;
   service_images?: UpdateServiceImageManual[];
 };
+
+export type BranchServicePrice = {
+  branchID: string;
+  serviceID: string;
+  isVisible: boolean;
+  maxCapacity: number;
+  priceForMember: number;
+  priceForNonMember: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateBranchServicePriceItem = {
+  service_id: string;
+  is_visible: boolean;
+  max_capacity: number;
+  price_for_member: number;
+  price_for_non_member: number;
+};
+
+export type UpdateBranchServicePrice = {
+  is_visible?: boolean;
+  max_capacity?: number;
+  price_for_member?: number;
+  price_for_non_member?: number;
+};

@@ -5,6 +5,9 @@ import type {
   ServiceCategoryInfo,
   ServiceFullDetail,
   UpdateServiceManual,
+  CreateBranchServicePriceItem,
+  BranchServicePrice,
+  UpdateBranchServicePrice,
 } from '@/types';
 
 export class ProductsService {
@@ -18,6 +21,12 @@ export class ProductsService {
     this.updateService = this.updateService.bind(this);
     this.deleteService = this.deleteService.bind(this);
     this.getCategories = this.getCategories.bind(this);
+
+    this.addBranchService = this.addBranchService.bind(this);
+    this.removeBranchService = this.removeBranchService.bind(this);
+    this.getBranchServices = this.getBranchServices.bind(this);
+    this.getBranchServiceByID = this.getBranchServiceByID.bind(this);
+    this.updateBranchService = this.updateBranchService.bind(this);
   }
   async createService(data: CreateService, jwt: string): Promise<void> {
     await this.client.post({
@@ -70,5 +79,66 @@ export class ProductsService {
       jwt,
     });
     return response as unknown as DataResponse<ServiceCategoryInfo[]>;
+  }
+
+  async addBranchService(
+    BranchServiceData: CreateBranchServicePriceItem[],
+    branchId: string,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/branches/${branchId}/services`,
+      jwt,
+      data: {
+        services: BranchServiceData,
+      },
+    });
+  }
+
+  async getBranchServices(
+    branchId: string,
+    jwt: string,
+  ): Promise<DataResponse<BranchServicePrice[]>> {
+    const response = await this.client.get({
+      url: `/branches/${branchId}/services`,
+      jwt,
+    });
+    return response as unknown as DataResponse<BranchServicePrice[]>;
+  }
+
+  async getBranchServiceByID(
+    branchId: string,
+    jwt: string,
+    serviceId: string,
+  ): Promise<DataResponse<BranchServicePrice>> {
+    const response = await this.client.get({
+      url: `/branches/${branchId}/services/${serviceId}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<BranchServicePrice>;
+  }
+
+  async updateBranchService(
+    branchId: string,
+    serviceId: string,
+    BranchServiceData: UpdateBranchServicePrice,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.put({
+      url: `/branches/${branchId}/services/${serviceId}`,
+      jwt,
+      data: BranchServiceData,
+    });
+  }
+
+  async removeBranchService(
+    branchId: string,
+    serviceId: string,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.delete({
+      url: `/branches/${branchId}/services/${serviceId}`,
+      jwt,
+    });
   }
 }
