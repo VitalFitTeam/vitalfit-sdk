@@ -6,3 +6,6 @@ export * from './instructor';
 export * from './RBAC';
 export * from './marketing';
 export * from './memberships';
+export * from './public';
+export * from './products';
+export * from './equipment';
