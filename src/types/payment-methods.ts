@@ -72,3 +72,13 @@ export type UpdateBranchPaymentMethod = {
   surcharge_percentage?: number;
   visibility?: BranchPaymentVisibility;
 };
+
+export type BranchPaymentMethodInfo = {
+  branch_id: string;
+  configuration: PaymentConfiguration;
+  display_name: string;
+  method_id: string;
+  surcharge_fixed: number;
+  surcharge_percentage: number;
+  visibility: BranchPaymentVisibility;
+};

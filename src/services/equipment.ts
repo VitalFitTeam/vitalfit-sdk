@@ -1,8 +1,10 @@
 import type {
+  BranchEquipmentInventory,
   CreateBranchEquipment,
   CreateEquipment,
   DataResponse,
   Equipment,
+  EquipmentInfo,
   UpdateBranchEquipmentDetails,
   UpdateEquipment,
 } from '@/types';
@@ -14,11 +16,13 @@ export class EquipmentService {
   constructor(client: Client) {
     this.client = client;
     this.getEquipment = this.getEquipment.bind(this);
+    this.getEquipmentByID = this.getEquipmentByID.bind(this);
     this.createEquipment = this.createEquipment.bind(this);
     this.updateEquipment = this.updateEquipment.bind(this);
     this.deleteEquipment = this.deleteEquipment.bind(this);
 
     this.getBranchEquipment = this.getBranchEquipment.bind(this);
+    this.getBranchEquipmentByID = this.getBranchEquipmentByID.bind(this);
     this.addBranchEquipment = this.addBranchEquipment.bind(this);
     this.removeBranchEquipment = this.removeBranchEquipment.bind(this);
     this.updateBranchEquipment = this.updateBranchEquipment.bind(this);
@@ -30,6 +34,28 @@ export class EquipmentService {
       jwt,
     });
     return response as unknown as DataResponse<Equipment[]>;
+  }
+
+  async getEquipmentByID(
+    equipmentId: string,
+    jwt: string,
+  ): Promise<DataResponse<EquipmentInfo>> {
+    const response = await this.client.get({
+      url: `/equipment-types/${equipmentId}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<EquipmentInfo>;
+  }
+  async getBranchEquipmentByID(
+    branchId: string,
+    equipmentID: string,
+    jwt: string,
+  ): Promise<DataResponse<BranchEquipmentInventory>> {
+    const response = await this.client.get({
+      url: `/branches/${branchId}/equipment/${equipmentID}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<BranchEquipmentInventory>;
   }
 
   async createEquipment(data: CreateEquipment, jwt: string): Promise<void> {

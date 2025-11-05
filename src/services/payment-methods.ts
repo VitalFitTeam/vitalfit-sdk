@@ -1,6 +1,7 @@
 import { Client } from '../client';
 import type {
   BranchPaymentMethod,
+  BranchPaymentMethodInfo,
   CreateBranchPaymentMethod,
   CreatePaymentMethod,
   DataResponse,
@@ -22,6 +23,8 @@ export class PaymentMethodService {
     this.addBranchPaymentMethod = this.addBranchPaymentMethod.bind(this);
     this.removeBranchPaymentMethod = this.removeBranchPaymentMethod.bind(this);
     this.getBranchPaymentMethods = this.getBranchPaymentMethods.bind(this);
+    this.getBranchPaymentMethodByID =
+      this.getBranchPaymentMethodByID.bind(this);
     this.updateBranchPaymentMethod = this.updateBranchPaymentMethod.bind(this);
   }
 
@@ -97,6 +100,18 @@ export class PaymentMethodService {
       jwt,
     });
     return response as unknown as DataResponse<BranchPaymentMethod[]>;
+  }
+
+  async getBranchPaymentMethodByID(
+    branchId: string,
+    paymentMethodId: string,
+    jwt: string,
+  ): Promise<DataResponse<BranchPaymentMethodInfo>> {
+    const response = await this.client.get({
+      url: `/branches/${branchId}/payment-methods/${paymentMethodId}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<BranchPaymentMethodInfo>;
   }
 
   async removeBranchPaymentMethod(

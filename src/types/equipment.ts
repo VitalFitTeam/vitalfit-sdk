@@ -40,3 +40,21 @@ export type UpdateBranchEquipmentDetails = {
   notes?: string;
   status?: EquipmentStatus;
 };
+
+export type EquipmentInfo = {
+  equipment_id: string;
+  name: string;
+  category: EquipmentCategory;
+  model: string;
+  description: string;
+};
+
+export type BranchEquipmentInventory = {
+  acquisition_date: string;
+  equipment_id: string;
+  inventory_id: string;
+  last_maintenance_date: string;
+  notes: string;
+  serial_number: string;
+  status: EquipmentStatus;
+};
