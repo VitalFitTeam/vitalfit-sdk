@@ -53,7 +53,7 @@ export type PaginatedInstructor = PaginationRequest & {
 
 export type BranchInstructorInfo = {
   email: string;
-  name: string;
+  instructorName: string;
   phone: string;
   instructorID: string;
 };
