@@ -134,11 +134,16 @@ export class InstructorService {
 
   async getBranchInstructors(
     branchId: string,
+    { search, identity_doc }: PaginatedInstructor,
     jwt: string,
   ): Promise<DataResponse<BranchInstructorInfo[]>> {
     const response = await this.client.get({
-      url: `/branches/${branchId}/instructors`,
+      url: `/branches/${branchId}/instructor`,
       jwt,
+      params: {
+        search,
+        identity_doc,
+      },
     });
     return response as unknown as DataResponse<BranchInstructorInfo[]>;
   }
