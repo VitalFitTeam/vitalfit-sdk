@@ -114,7 +114,7 @@ export class InstructorService {
     jwt: string,
   ): Promise<void> {
     await this.client.post({
-      url: `/branches/${branchId}/instructors`,
+      url: `/branches/${branchId}/instructor`,
       jwt,
       data: {
         instructors: instructorIDs,
@@ -127,7 +127,7 @@ export class InstructorService {
     jwt: string,
   ): Promise<void> {
     await this.client.delete({
-      url: `/branches/${branchId}/instructors/${instructorId}`,
+      url: `/branches/${branchId}/instructor/${instructorId}`,
       jwt,
     });
   }
