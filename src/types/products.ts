@@ -72,14 +72,13 @@ export type UpdateServiceManual = {
 };
 
 export type BranchServicePrice = {
-  branchID: string;
-  serviceID: string;
-  isVisible: boolean;
-  maxCapacity: number;
-  priceForMember: number;
-  priceForNonMember: number;
-  createdAt: string;
-  updatedAt: string;
+  branch_id: string;
+  service_id: string;
+  service_name: string;
+  is_visible: boolean;
+  max_capacity: number;
+  price_for_member: number;
+  price_for_non_member: number;
 };
 
 export type CreateBranchServicePriceItem = {
