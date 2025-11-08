@@ -117,7 +117,7 @@ export class InstructorService {
       url: `/branches/${branchId}/instructor`,
       jwt,
       data: {
-        instructors: instructorIDs,
+        instructor: instructorIDs,
       },
     });
   }
