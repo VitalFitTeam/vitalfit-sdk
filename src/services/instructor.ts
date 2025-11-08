@@ -6,6 +6,8 @@ import type {
   InstructorData,
   Specialty,
   BranchInstructorInfo,
+  PaginatedTotal,
+  InstructorsSummary,
 } from '@/types';
 import { Client } from '../client';
 
@@ -15,6 +17,7 @@ export class InstructorService {
   constructor(client: Client) {
     this.client = client;
     this.getInstructors = this.getInstructors.bind(this);
+    this.getSummary = this.getSummary.bind(this);
     this.createInstructor = this.createInstructor.bind(this);
     this.getInstructorById = this.getInstructorById.bind(this);
     this.updateInstructor = this.updateInstructor.bind(this);
@@ -28,18 +31,28 @@ export class InstructorService {
   }
 
   async getInstructors(
-    { search, identity_doc }: PaginatedInstructor,
+    { page = 10, limit = 10, search, identity_doc }: PaginatedInstructor,
     jwt: string,
-  ): Promise<DataResponse<InstructorDataList[]>> {
+  ): Promise<PaginatedTotal<InstructorDataList[]>> {
     const response = await this.client.get({
       url: '/instructor',
       jwt,
       params: {
+        page,
+        limit,
         search,
         identity_doc,
       },
     });
-    return response as unknown as DataResponse<InstructorDataList[]>;
+    return response as unknown as PaginatedTotal<InstructorDataList[]>;
+  }
+
+  async getSummary(jwt: string): Promise<DataResponse<InstructorsSummary>> {
+    const response = await this.client.get({
+      url: '/instructor/summary',
+      jwt,
+    });
+    return response as unknown as DataResponse<InstructorsSummary>;
   }
 
   async createInstructor(

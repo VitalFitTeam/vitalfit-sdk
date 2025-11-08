@@ -8,6 +8,9 @@ import type {
   CreateBranchServicePriceItem,
   BranchServicePrice,
   UpdateBranchServicePrice,
+  PaginatedServiceRequest,
+  PaginatedTotal,
+  ServicesSummary,
 } from '@/types';
 
 export class ProductsService {
@@ -17,6 +20,7 @@ export class ProductsService {
     this.client = client;
     this.createService = this.createService.bind(this);
     this.getServices = this.getServices.bind(this);
+    this.getSummary = this.getSummary.bind(this);
     this.getServiceByID = this.getServiceByID.bind(this);
     this.updateService = this.updateService.bind(this);
     this.deleteService = this.deleteService.bind(this);
@@ -36,13 +40,38 @@ export class ProductsService {
     });
   }
 
-  async getServices(jwt: string): Promise<DataResponse<ServiceFullDetail[]>> {
+  async getServices(
+    jwt: string,
+    {
+      page = 10,
+      limit = 10,
+      sort = 'desc',
+      search,
+      category,
+    }: PaginatedServiceRequest,
+  ): Promise<PaginatedTotal<ServiceFullDetail[]>> {
     const response = await this.client.get({
       url: '/services/all',
       jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+        category,
+      },
     });
-    return response as unknown as DataResponse<ServiceFullDetail[]>;
+    return response as unknown as PaginatedTotal<ServiceFullDetail[]>;
   }
+
+  async getSummary(jwt: string): Promise<DataResponse<ServicesSummary>> {
+    const response = await this.client.get({
+      url: '/services/summary',
+      jwt,
+    });
+    return response as unknown as DataResponse<ServicesSummary>;
+  }
+
   async getServiceByID(
     serviceId: string,
     jwt: string,

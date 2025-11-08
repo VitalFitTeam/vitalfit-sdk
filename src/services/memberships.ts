@@ -1,6 +1,10 @@
 import type {
+  CreateMembershipType,
   DataResponse,
+  MembershipsSummary,
   MembershipType,
+  PaginatedTotal,
+  PaginationRequest,
   UpdateMembershipType,
 } from '@/types';
 import { Client } from '../client';
@@ -12,14 +16,18 @@ export class MembershipService {
     this.client = client;
     this.createMembershipType = this.createMembershipType.bind(this);
     this.getMembershipTypes = this.getMembershipTypes.bind(this);
+    this.getSummary = this.getSummary.bind(this);
     this.getMembershipTypeByID = this.getMembershipTypeByID.bind(this);
     this.updateMembershipType = this.updateMembershipType.bind(this);
     this.deleteMembershipType = this.deleteMembershipType.bind(this);
   }
 
-  async createMembershipType(data: any, jwt: string): Promise<void> {
+  async createMembershipType(
+    data: CreateMembershipType,
+    jwt: string,
+  ): Promise<void> {
     await this.client.post({
-      url: '/membership/types',
+      url: '/membership-plans',
       jwt,
       data,
     });
@@ -27,12 +35,27 @@ export class MembershipService {
 
   async getMembershipTypes(
     jwt: string,
-  ): Promise<DataResponse<MembershipType[]>> {
+    { page = 10, limit = 10, sort = 'desc', search }: PaginationRequest,
+  ): Promise<PaginatedTotal<MembershipType[]>> {
     const response = await this.client.get({
-      url: '/membership/types',
+      url: '/membership-plans',
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<MembershipType[]>;
+  }
+
+  async getSummary(jwt: string): Promise<DataResponse<MembershipsSummary>> {
+    const response = await this.client.get({
+      url: '/membership-plans/summary',
       jwt,
     });
-    return response as unknown as DataResponse<MembershipType[]>;
+    return response as unknown as DataResponse<MembershipsSummary>;
   }
 
   async getMembershipTypeByID(
@@ -40,7 +63,7 @@ export class MembershipService {
     jwt: string,
   ): Promise<DataResponse<MembershipType>> {
     const response = await this.client.get({
-      url: `/membership/types/${membershipTypeId}`,
+      url: `/membership-plans/${membershipTypeId}`,
       jwt,
     });
     return response as unknown as DataResponse<MembershipType>;
@@ -52,7 +75,7 @@ export class MembershipService {
     jwt: string,
   ): Promise<void> {
     await this.client.put({
-      url: `/membership/types/${membershipTypeId}`,
+      url: `/membership-plans/${membershipTypeId}`,
       jwt,
       data,
     });
@@ -63,7 +86,7 @@ export class MembershipService {
     jwt: string,
   ): Promise<void> {
     await this.client.delete({
-      url: `/membership/types/${membershipTypeId}`,
+      url: `/membership-plans/${membershipTypeId}`,
       jwt,
     });
   }

@@ -1,3 +1,5 @@
+import type { PaginationRequest } from './utils';
+
 export interface ServiceCategoryInfo {
   category_id: string;
   name: string;
@@ -94,4 +96,14 @@ export type UpdateBranchServicePrice = {
   max_capacity?: number;
   price_for_member?: number;
   price_for_non_member?: number;
+};
+
+export type PaginatedServiceRequest = PaginationRequest & {
+  category?: string;
+};
+
+export type ServicesSummary = {
+  total: number;
+  actives: number;
+  featured: number;
 };

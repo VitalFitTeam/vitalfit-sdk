@@ -106,8 +106,8 @@ export class AuthService {
     await this.client.put({
       url: `/auth/activate/${token}`,
       data: {
-        password,
-        repeatPassword,
+        password: password,
+        confirm_password: repeatPassword,
       },
     });
   }

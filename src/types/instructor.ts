@@ -57,3 +57,9 @@ export type BranchInstructorInfo = {
   phone: string;
   instructorID: string;
 };
+
+export type InstructorsSummary = {
+  total: number;
+  actives: number;
+  blocked: number;
+};

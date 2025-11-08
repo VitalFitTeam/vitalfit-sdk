@@ -5,6 +5,8 @@ import type {
   DataResponse,
   Equipment,
   EquipmentInfo,
+  PaginatedEquipmentRequest,
+  PaginatedTotal,
   UpdateBranchEquipmentDetails,
   UpdateEquipment,
 } from '@/types';
@@ -28,12 +30,28 @@ export class EquipmentService {
     this.updateBranchEquipment = this.updateBranchEquipment.bind(this);
   }
 
-  async getEquipment(jwt: string): Promise<DataResponse<Equipment[]>> {
+  async getEquipment(
+    jwt: string,
+    {
+      page = 10,
+      limit = 10,
+      sort = 'desc',
+      search,
+      category,
+    }: PaginatedEquipmentRequest,
+  ): Promise<PaginatedTotal<Equipment[]>> {
     const response = await this.client.get({
       url: '/equipment-types',
       jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+        category,
+      },
     });
-    return response as unknown as DataResponse<Equipment[]>;
+    return response as unknown as PaginatedTotal<Equipment[]>;
   }
 
   async getEquipmentByID(

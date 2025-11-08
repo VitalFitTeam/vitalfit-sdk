@@ -1,3 +1,5 @@
+import type { PaginationRequest } from './utils';
+
 export type EquipmentCategory =
   | 'Cardio'
   | 'Strength'
@@ -57,4 +59,8 @@ export type BranchEquipmentInventory = {
   notes: string;
   serial_number: string;
   status: EquipmentStatus;
+};
+
+export type PaginatedEquipmentRequest = PaginationRequest & {
+  category?: EquipmentCategory;
 };

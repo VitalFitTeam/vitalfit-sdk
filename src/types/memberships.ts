@@ -22,3 +22,9 @@ export type UpdateMembershipType = {
   name?: string;
   price?: number;
 };
+
+export type MembershipsSummary = {
+  total: number;
+  actives: number;
+  inactives: number;
+};
