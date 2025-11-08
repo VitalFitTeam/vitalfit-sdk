@@ -104,9 +104,7 @@ export class EquipmentService {
     await this.client.post({
       url: `/branches/${branchId}/equipment`,
       jwt,
-      data: {
-        equipment: equipmentData,
-      },
+      data: equipmentData,
     });
   }
 
