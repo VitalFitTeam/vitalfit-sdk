@@ -1,6 +1,6 @@
 {
   "name": "@vitalfit/sdk",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "VitalFit Core API SDK",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
