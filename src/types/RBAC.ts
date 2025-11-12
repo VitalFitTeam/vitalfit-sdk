@@ -18,5 +18,5 @@ export interface RoleResponse {
 export type CreateRole = {
   description: string;
   name: string;
-  permissionsID: string[];
+  permissions: string[];
 };
