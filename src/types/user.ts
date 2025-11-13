@@ -41,6 +41,35 @@ export type UserApiResponse = {
   user: User;
 };
 
+export type GetUserResponse = {
+  birth_date: string;
+  email: string;
+  first_name: string;
+  gender: string;
+  identity_document: string;
+  last_name: string;
+  phone: string;
+  profile_picture_url: string;
+  role_id: string;
+  role_name: string;
+  user_id: string;
+};
+
+export type UpdateUserRequest = {
+  birth_date?: string;
+  email?: string;
+  first_name?: string;
+  gender?: string;
+  identity_document?: string;
+  last_name?: string;
+  phone?: string;
+  profile_picture_url?: string;
+};
+
+export type UpdateUserStaffRequest = UpdateUserRequest & {
+  role_name?: string;
+};
+
 export type UserPaginationOptions = {
   limit?: number;
   page?: number;
