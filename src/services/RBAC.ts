@@ -2,9 +2,10 @@ import { Client } from '../client';
 import type {
   CreateRole,
   DataResponse,
-  PaymentMethod,
+  PaginationRequest,
   Permission,
   RoleResponse,
+  PaginatedTotal,
 } from '@/types';
 
 export class RBACService {
@@ -30,12 +31,20 @@ export class RBACService {
     return response as unknown as DataResponse<Permission[]>;
   }
 
-  async getRoles(jwt: string): Promise<DataResponse<RoleResponse[]>> {
+  async getRoles(
+    { page = 10, limit = 10, search }: PaginationRequest,
+    jwt: string,
+  ): Promise<PaginatedTotal<RoleResponse[]>> {
     const response = await this.client.get({
       url: '/admin/roles',
       jwt,
+      params: {
+        page,
+        limit,
+        search,
+      },
     });
-    return response as unknown as DataResponse<RoleResponse[]>;
+    return response as unknown as PaginatedTotal<RoleResponse[]>;
   }
 
   async createRole(roleData: CreateRole, jwt: string): Promise<void> {
