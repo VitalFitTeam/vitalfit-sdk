@@ -32,7 +32,7 @@ export class RBACService {
   }
 
   async getRoles(
-    { page = 10, limit = 10, search }: PaginationRequest,
+    { page = 10, limit = 10, search, sort = 'desc' }: PaginationRequest,
     jwt: string,
   ): Promise<PaginatedTotal<RoleResponse[]>> {
     const response = await this.client.get({
