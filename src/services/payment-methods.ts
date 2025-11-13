@@ -1,8 +1,6 @@
 import { Client } from '../client';
 import type {
-  BranchPaymentMethod,
   BranchPaymentMethodInfo,
-  CreateBranchPaymentMethod,
   CreatePaymentMethod,
   DataResponse,
   PaymentMethod,
@@ -81,25 +79,27 @@ export class PaymentMethodService {
 
   async addBranchPaymentMethod(
     branchId: string,
-    paymentMethodData: CreateBranchPaymentMethod[],
+    paymentMethodID: string[],
     jwt: string,
   ): Promise<void> {
     await this.client.post({
       url: `/branches/${branchId}/payment-methods`,
       jwt,
-      data: paymentMethodData,
+      data: {
+        method_id: paymentMethodID,
+      },
     });
   }
 
   async getBranchPaymentMethods(
     branchId: string,
     jwt: string,
-  ): Promise<DataResponse<BranchPaymentMethod[]>> {
+  ): Promise<DataResponse<BranchPaymentMethodInfo[]>> {
     const response = await this.client.get({
       url: `/branches/${branchId}/payment-methods`,
       jwt,
     });
-    return response as unknown as DataResponse<BranchPaymentMethod[]>;
+    return response as unknown as DataResponse<BranchPaymentMethodInfo[]>;
   }
 
   async getBranchPaymentMethodByID(
