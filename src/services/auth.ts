@@ -10,6 +10,7 @@ export class AuthService {
     this.signUpStaff = this.signUpStaff.bind(this);
     this.forgotPassword = this.forgotPassword.bind(this);
     this.resetPassword = this.resetPassword.bind(this);
+    this.validateResetToken = this.validateResetToken.bind(this);
     this.verifyEmail = this.verifyEmail.bind(this);
     this.verifyStaff = this.verifyStaff.bind(this);
 
@@ -87,6 +88,12 @@ export class AuthService {
         password,
         repeatPassword,
       },
+    });
+  }
+
+  async validateResetToken(token: string): Promise<void> {
+    await this.client.get({
+      url: `/auth/password/validate/${token}`,
     });
   }
 

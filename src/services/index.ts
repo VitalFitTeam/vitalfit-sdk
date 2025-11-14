@@ -9,3 +9,4 @@ export * from './memberships';
 export * from './public';
 export * from './products';
 export * from './equipment';
+export * from './schedule';
