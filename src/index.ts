@@ -10,6 +10,7 @@ import {
   PublicService,
   EquipmentService,
   ScheduleService,
+  PackagesService,
 } from './services';
 import { MarketingService } from './services/marketing';
 import { ProductsService } from './services/products';
@@ -29,6 +30,7 @@ export class VitalFit {
   products: ProductsService;
   equipment: EquipmentService;
   schedule: ScheduleService;
+  packages: PackagesService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -44,6 +46,7 @@ export class VitalFit {
     this.products = new ProductsService(this.client);
     this.equipment = new EquipmentService(this.client);
     this.schedule = new ScheduleService(this.client);
+    this.packages = new PackagesService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
