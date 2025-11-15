@@ -14,14 +14,14 @@ export class PackagesService {
 
   constructor(client: Client) {
     this.client = client;
-    this.createPAckage = this.createPAckage.bind(this);
+    this.createPackage = this.createPackage.bind(this);
     this.getPackages = this.getPackages.bind(this);
     this.getPackageByID = this.getPackageByID.bind(this);
     this.updatePackage = this.updatePackage.bind(this);
     this.deletePackage = this.deletePackage.bind(this);
   }
 
-  async createPAckage(data: CreatePackagePayload, jwt: string): Promise<void> {
+  async createPackage(data: CreatePackagePayload, jwt: string): Promise<void> {
     await this.client.post({
       url: '/packages',
       jwt,
