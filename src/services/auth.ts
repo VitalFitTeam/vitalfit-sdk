@@ -84,9 +84,9 @@ export class AuthService {
     await this.client.post({
       url: '/auth/password/reset',
       data: {
-        otp,
-        password,
-        repeatPassword,
+        token: otp,
+        password: password,
+        confirm_password: repeatPassword,
       },
     });
   }
