@@ -54,6 +54,7 @@ export type EquipmentInfo = {
 export type BranchEquipmentInventory = {
   acquisition_date: string;
   equipment_id: string;
+  name: string;
   inventory_id: string;
   last_maintenance_date: string;
   notes: string;

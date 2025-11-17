@@ -106,12 +106,12 @@ export class EquipmentService {
   async getBranchEquipment(
     branchId: string,
     jwt: string,
-  ): Promise<DataResponse<Equipment[]>> {
+  ): Promise<DataResponse<BranchEquipmentInventory[]>> {
     const response = await this.client.get({
       url: `/branches/${branchId}/equipment`,
       jwt,
     });
-    return response as unknown as DataResponse<Equipment[]>;
+    return response as unknown as DataResponse<BranchEquipmentInventory[]>;
   }
 
   async addBranchEquipment(
