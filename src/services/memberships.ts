@@ -97,11 +97,13 @@ export class MembershipService {
   async publicGetMemberships(
     jwt: string,
     { page = 10, limit = 10, sort = 'desc', search }: PaginationRequest,
+    currency: string,
   ): Promise<PaginatedTotal<PublicMembershipResponse[]>> {
     const response = await this.client.get({
       url: '/public/membership-plans',
       jwt,
       params: {
+        currency,
         page,
         limit,
         sort,
