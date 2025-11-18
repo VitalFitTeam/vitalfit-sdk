@@ -28,3 +28,15 @@ export type MembershipsSummary = {
   actives: number;
   inactives: number;
 };
+
+export type PublicMembershipResponse = {
+  membership_type_id: string;
+  name: string;
+  description: string;
+  duration_days: number;
+  price: number;
+  base_currency: string;
+  ref_price: string;
+  ref_currency: string;
+  is_active: boolean;
+};

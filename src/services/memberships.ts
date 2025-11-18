@@ -5,6 +5,7 @@ import type {
   MembershipType,
   PaginatedTotal,
   PaginationRequest,
+  PublicMembershipResponse,
   UpdateMembershipType,
 } from '@/types';
 import { Client } from '../client';
@@ -20,6 +21,8 @@ export class MembershipService {
     this.getMembershipTypeByID = this.getMembershipTypeByID.bind(this);
     this.updateMembershipType = this.updateMembershipType.bind(this);
     this.deleteMembershipType = this.deleteMembershipType.bind(this);
+
+    this.publicGetMemberships = this.publicGetMemberships.bind(this);
   }
 
   async createMembershipType(
@@ -89,5 +92,22 @@ export class MembershipService {
       url: `/membership-plans/${membershipTypeId}`,
       jwt,
     });
+  }
+
+  async publicGetMemberships(
+    jwt: string,
+    { page = 10, limit = 10, sort = 'desc', search }: PaginationRequest,
+  ): Promise<PaginatedTotal<PublicMembershipResponse[]>> {
+    const response = await this.client.get({
+      url: '/public/membership-plans',
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<PublicMembershipResponse[]>;
   }
 }

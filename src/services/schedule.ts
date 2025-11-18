@@ -41,7 +41,6 @@ export class ScheduleService {
   }
 
   async GetClassByID(
-    branchID: string,
     classID: string,
     jwt: string,
   ): Promise<DataResponse<BranchClassInfo>> {
@@ -53,7 +52,6 @@ export class ScheduleService {
   }
 
   async UpdateClass(
-    branchID: string,
     classID: string,
     data: UpdateClassPayload,
     jwt: string,
@@ -64,11 +62,7 @@ export class ScheduleService {
       data,
     });
   }
-  async DeleteClass(
-    branchID: string,
-    classID: string,
-    jwt: string,
-  ): Promise<void> {
+  async DeleteClass(classID: string, jwt: string): Promise<void> {
     await this.client.delete({
       url: `/schedule/${classID}`,
       jwt,
