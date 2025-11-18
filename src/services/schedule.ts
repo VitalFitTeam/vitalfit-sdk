@@ -23,7 +23,7 @@ export class ScheduleService {
     jwt: string,
   ): Promise<DataResponse<BranchClassInfo[]>> {
     const response = await this.client.get({
-      url: `/branches/${branchID}/classes`,
+      url: `/branches/${branchID}/schedule`,
       jwt,
     });
     return response as unknown as DataResponse<BranchClassInfo[]>;
@@ -34,7 +34,7 @@ export class ScheduleService {
     jwt: string,
   ): Promise<void> {
     await this.client.post({
-      url: `/branches/${branchID}/classes`,
+      url: `/branches/${branchID}/schedule`,
       jwt,
       data,
     });
