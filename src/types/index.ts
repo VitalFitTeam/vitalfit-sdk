@@ -13,3 +13,4 @@ export * from './equipment';
 export * from './schedule';
 export * from './packages';
 export * from './billing';
+export * from './booking';
