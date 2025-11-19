@@ -43,11 +43,7 @@ export class AuthService {
   }
 
   async signUp(signUpData: SignUpRequest): Promise<void> {
-    signUpData.role_name = 'client';
     const birthDateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (signUpData.role_name != 'client') {
-      throw new Error('Only clients can sign up using this method');
-    }
     if (!birthDateRegex.test(signUpData.birth_date)) {
       throw new Error('Birth date must be in the format YYYY-MM-DD');
     }
