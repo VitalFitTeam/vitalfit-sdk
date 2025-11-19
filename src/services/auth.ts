@@ -97,7 +97,7 @@ export class AuthService {
     await this.client.post({
       url: '/auth/activate',
       data: {
-        otp,
+        code: otp,
       },
     });
   }
