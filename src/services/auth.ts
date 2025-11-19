@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   async verifyEmail(otp: string): Promise<void> {
-    await this.client.post({
+    await this.client.put({
       url: '/auth/activate',
       data: {
         code: otp,
