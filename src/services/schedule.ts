@@ -57,7 +57,7 @@ export class ScheduleService {
     jwt: string,
   ): Promise<void> {
     await this.client.put({
-      url: `/schedule${classID}`,
+      url: `/schedule/${classID}`,
       jwt,
       data,
     });
