@@ -11,7 +11,7 @@ export class PublicService {
 
   async getBranchMap(jwt: string): Promise<DataResponse<BranchInfo>> {
     const response = await this.client.get({
-      url: '/public/branch-map',
+      url: '/public/branches-map',
       jwt,
     });
     return response as unknown as DataResponse<BranchInfo>;
