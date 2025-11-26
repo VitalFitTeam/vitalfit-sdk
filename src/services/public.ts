@@ -9,11 +9,12 @@ export class PublicService {
     this.getBranchMap = this.getBranchMap.bind(this);
   }
 
-  async getBranchMap(jwt: string): Promise<DataResponse<BranchInfo>> {
+  async getBranchMap(jwt: string): Promise<DataResponse<BranchInfo[]>> {
     const response = await this.client.get({
       url: '/public/branches-map',
       jwt,
     });
-    return response as unknown as DataResponse<BranchInfo>;
+
+    return response as unknown as DataResponse<BranchInfo[]>;
   }
 }
