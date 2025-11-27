@@ -116,3 +116,10 @@ export type ServicePublicItem = ServiceFullDetail & {
   ref_lowest_price_no_member: string;
   ref_base_currency: string;
 };
+
+export type PublicPaginationService = PaginationRequest & {
+  currency: string;
+  category: string;
+  price: number;
+  sortby: string;
+};
