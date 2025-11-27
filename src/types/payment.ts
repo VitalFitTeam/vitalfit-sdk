@@ -71,3 +71,16 @@ export type InvoiceDetail = {
   invoice_items: InvoiceItemDetail[];
   payments: InvoicePaymentDetail[];
 };
+
+export type PaymentDetail = {
+  payment_id: string;
+  payment_date: string;
+  amount_paid: string;
+  currency_paid: string;
+  amount_base: string;
+  exchange_rate: string;
+  payment_method_id: string;
+  transaction_id: string;
+  status: string;
+  receipt_url: string;
+};
