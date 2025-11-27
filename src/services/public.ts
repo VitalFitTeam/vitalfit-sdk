@@ -4,6 +4,7 @@ import type {
   BranchInfo,
   ServicePublicItem,
   PublicPaginationService,
+  PaginatedTotal,
 } from '@/types';
 
 export class PublicService {
@@ -32,7 +33,7 @@ export class PublicService {
     sortby,
     search,
     sort = 'desc',
-  }: PublicPaginationService): Promise<DataResponse<ServicePublicItem[]>> {
+  }: PublicPaginationService): Promise<PaginatedTotal<ServicePublicItem[]>> {
     const response = await this.client.get({
       url: '/public/services',
       params: {
@@ -46,6 +47,6 @@ export class PublicService {
         sort,
       },
     });
-    return response as unknown as DataResponse<ServicePublicItem[]>;
+    return response as unknown as PaginatedTotal<ServicePublicItem[]>;
   }
 }
