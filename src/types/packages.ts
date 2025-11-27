@@ -1,3 +1,5 @@
+import type { PaginationRequest } from './utils';
+
 export type PackageItemInput = {
   serviceId: string;
   sessionsIncluded: number;
@@ -50,4 +52,17 @@ export type UpdatePackagePayload = {
   packageItems: PackageItemInput[];
   price: number;
   startAt: string;
+};
+
+export type PackagePublicItem = Omit<
+  PackageListItem,
+  'createdAt' | 'updatedAt'
+> & {
+  base_currency: string;
+  ref_price: string;
+  ref_currency: string;
+};
+
+export type PublicPaginatedPackage = PaginationRequest & {
+  currency: string;
 };

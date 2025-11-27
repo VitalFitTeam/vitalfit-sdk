@@ -5,6 +5,8 @@ import type {
   ServicePublicItem,
   PublicPaginationService,
   PaginatedTotal,
+  PublicPaginatedPackage,
+  PackagePublicItem,
 } from '@/types';
 
 export class PublicService {
@@ -14,6 +16,7 @@ export class PublicService {
     this.client = client;
     this.getBranchMap = this.getBranchMap.bind(this);
     this.getServices = this.getServices.bind(this);
+    this.getPackages = this.getPackages.bind(this);
   }
 
   async getBranchMap(jwt: string): Promise<DataResponse<BranchInfo[]>> {
@@ -48,5 +51,21 @@ export class PublicService {
       },
     });
     return response as unknown as PaginatedTotal<ServicePublicItem[]>;
+  }
+
+  async getPackages({
+    page = 1,
+    limit = 10,
+    currency,
+  }: PublicPaginatedPackage): Promise<PaginatedTotal<PackagePublicItem[]>> {
+    const response = await this.client.get({
+      url: '/public/packages',
+      params: {
+        page,
+        limit,
+        currency,
+      },
+    });
+    return response as unknown as PaginatedTotal<PackagePublicItem[]>;
   }
 }
