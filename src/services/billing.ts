@@ -1,4 +1,9 @@
-import type { CreateInvoicePayload, CreateInvoiceResponse } from '@/types';
+import type {
+  AddPaymentToInvoicePayload,
+  AddPaymentToInvoiceResponse,
+  CreateInvoicePayload,
+  CreateInvoiceResponse,
+} from '@/types';
 import { Client } from '../client';
 
 export class BillingService {
@@ -7,6 +12,7 @@ export class BillingService {
   constructor(client: Client) {
     this.client = client;
     this.createInvoice = this.createInvoice.bind(this);
+    this.AddPaymentToInvoice = this.AddPaymentToInvoice.bind(this);
   }
   async createInvoice(
     data: CreateInvoicePayload,
@@ -18,5 +24,17 @@ export class BillingService {
       data,
     });
     return response as unknown as CreateInvoiceResponse;
+  }
+
+  async AddPaymentToInvoice(
+    data: AddPaymentToInvoicePayload,
+    jwt: string,
+  ): Promise<AddPaymentToInvoiceResponse> {
+    const response = await this.client.post({
+      url: '/billing/invoices/payment',
+      jwt,
+      data,
+    });
+    return response as unknown as AddPaymentToInvoiceResponse;
   }
 }
