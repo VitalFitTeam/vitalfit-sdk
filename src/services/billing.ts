@@ -18,6 +18,7 @@ export class BillingService {
     this.AddPaymentToInvoice = this.AddPaymentToInvoice.bind(this);
     this.getInvoiceByID = this.getInvoiceByID.bind(this);
     this.getPaymentByID = this.getPaymentByID.bind(this);
+    this.updatePaymentStatus = this.updatePaymentStatus.bind(this);
   }
   async createInvoice(
     data: CreateInvoicePayload,
@@ -62,5 +63,18 @@ export class BillingService {
       jwt,
     });
     return response as unknown as DataResponse<PaymentDetail>;
+  }
+  async updatePaymentStatus(
+    paymentId: string,
+    status: string,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.patch({
+      url: `/billing/payments/${paymentId}/status`,
+      jwt,
+      data: {
+        status: status,
+      },
+    });
   }
 }
