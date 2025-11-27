@@ -107,3 +107,12 @@ export type ServicesSummary = {
   actives: number;
   featured: number;
 };
+
+export type ServicePublicItem = ServiceFullDetail & {
+  lowest_price_member: number;
+  lowest_price_no_member: number;
+  base_currency: string;
+  ref_lowest_price_member: string;
+  ref_lowest_price_no_member: string;
+  ref_base_currency: string;
+};
