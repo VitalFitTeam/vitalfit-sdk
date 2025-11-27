@@ -3,6 +3,8 @@ import type {
   AddPaymentToInvoiceResponse,
   CreateInvoicePayload,
   CreateInvoiceResponse,
+  DataResponse,
+  InvoiceDetail,
 } from '@/types';
 import { Client } from '../client';
 
@@ -13,6 +15,7 @@ export class BillingService {
     this.client = client;
     this.createInvoice = this.createInvoice.bind(this);
     this.AddPaymentToInvoice = this.AddPaymentToInvoice.bind(this);
+    this.getInvoiceByID = this.getInvoiceByID.bind(this);
   }
   async createInvoice(
     data: CreateInvoicePayload,
@@ -24,6 +27,16 @@ export class BillingService {
       data,
     });
     return response as unknown as CreateInvoiceResponse;
+  }
+  async getInvoiceByID(
+    invoiceId: string,
+    jwt: string,
+  ): Promise<DataResponse<InvoiceDetail>> {
+    const response = await this.client.get({
+      url: `/billing/invoices/${invoiceId}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<InvoiceDetail>;
   }
 
   async AddPaymentToInvoice(
