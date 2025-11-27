@@ -21,6 +21,7 @@ export class UserService {
     this.GetUserByID = this.GetUserByID.bind(this);
     this.updateUserClient = this.updateUserClient.bind(this);
     this.updateUserStaff = this.updateUserStaff.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   async getStaffUsers(
@@ -97,6 +98,13 @@ export class UserService {
       url: `/user/${userId}/staff`,
       jwt,
       data,
+    });
+  }
+
+  async deleteUser(userId: string, jwt: string): Promise<void> {
+    await this.client.delete({
+      url: `/user/${userId}`,
+      jwt,
     });
   }
 }
