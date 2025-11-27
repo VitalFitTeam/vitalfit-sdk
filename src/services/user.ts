@@ -17,6 +17,7 @@ export class UserService {
     this.getBranchAdmins = this.getBranchAdmins.bind(this);
     this.getClientUsers = this.getClientUsers.bind(this);
     this.getStaffUsers = this.getStaffUsers.bind(this);
+    this.getUserByEmail = this.getUserByEmail.bind(this);
 
     this.GetUserByID = this.GetUserByID.bind(this);
     this.updateUserClient = this.updateUserClient.bind(this);
@@ -106,5 +107,19 @@ export class UserService {
       url: `/user/${userId}`,
       jwt,
     });
+  }
+
+  async getUserByEmail(
+    email: string,
+    jwt: string,
+  ): Promise<DataResponse<User>> {
+    const response = await this.client.post({
+      url: `/user/by-email`,
+      jwt,
+      data: {
+        email: email,
+      },
+    });
+    return response as unknown as DataResponse<User>;
   }
 }
