@@ -5,7 +5,7 @@ import type {
   DataResponse,
 } from '@/types';
 import { Client } from '../client';
-
+//booking
 export class BookingService {
   private client: Client;
 
