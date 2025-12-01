@@ -85,7 +85,7 @@ export class BillingService {
     jwt: string,
     { page = 1, limit = 10, sort = 'desc', search }: PaginationRequest,
     userID?: string,
-  ): Promise<PaginatedTotal<ClientInvoice>> {
+  ): Promise<PaginatedTotal<ClientInvoice[]>> {
     const response = await this.client.get({
       url: `/billing/invoices/client/${userID}`,
       jwt,
@@ -96,6 +96,6 @@ export class BillingService {
         search,
       },
     });
-    return response as unknown as PaginatedTotal<ClientInvoice>;
+    return response as unknown as PaginatedTotal<ClientInvoice[]>;
   }
 }
