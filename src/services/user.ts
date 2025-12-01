@@ -7,6 +7,7 @@ import type {
   GetUserResponse,
   UpdateUserRequest,
   UpdateUserStaffRequest,
+  QrToken,
 } from '@/types';
 
 export class UserService {
@@ -18,6 +19,7 @@ export class UserService {
     this.getClientUsers = this.getClientUsers.bind(this);
     this.getStaffUsers = this.getStaffUsers.bind(this);
     this.getUserByEmail = this.getUserByEmail.bind(this);
+    this.QrToken = this.QrToken.bind(this);
 
     this.GetUserByID = this.GetUserByID.bind(this);
     this.updateUserClient = this.updateUserClient.bind(this);
@@ -121,5 +123,13 @@ export class UserService {
       },
     });
     return response as unknown as DataResponse<User>;
+  }
+
+  async QrToken(jwt: string): Promise<QrToken> {
+    const response = await this.client.get({
+      url: `/user/qr-token`,
+      jwt,
+    });
+    return response;
   }
 }

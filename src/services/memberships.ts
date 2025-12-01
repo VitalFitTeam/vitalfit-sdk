@@ -1,4 +1,6 @@
 import type {
+  ClientMembershipDetail,
+  ClientMembershipItem,
   CreateMembershipType,
   DataResponse,
   MembershipsSummary,
@@ -6,6 +8,7 @@ import type {
   PaginatedTotal,
   PaginationRequest,
   PublicMembershipResponse,
+  UpdateClientMembershipRequest,
   UpdateMembershipType,
 } from '@/types';
 import { Client } from '../client';
@@ -21,8 +24,11 @@ export class MembershipService {
     this.getMembershipTypeByID = this.getMembershipTypeByID.bind(this);
     this.updateMembershipType = this.updateMembershipType.bind(this);
     this.deleteMembershipType = this.deleteMembershipType.bind(this);
-
     this.publicGetMemberships = this.publicGetMemberships.bind(this);
+
+    this.getClientMemberships = this.getClientMemberships.bind(this);
+    this.getClientMembershipByID = this.getClientMembershipByID.bind(this);
+    this.updateClientMembership = this.updateClientMembership.bind(this);
   }
 
   async createMembershipType(
@@ -111,5 +117,45 @@ export class MembershipService {
       },
     });
     return response as unknown as PaginatedTotal<PublicMembershipResponse[]>;
+  }
+
+  async getClientMemberships(
+    jwt: string,
+    { page = 10, limit = 10, sort = 'desc', search }: PaginationRequest,
+  ): Promise<PaginatedTotal<ClientMembershipItem>> {
+    const response = await this.client.get({
+      url: '/client-memberships',
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<ClientMembershipItem>;
+  }
+
+  async getClientMembershipByID(
+    membershipId: string,
+    jwt: string,
+  ): Promise<DataResponse<ClientMembershipDetail>> {
+    const response = await this.client.get({
+      url: `/client-memberships/${membershipId}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<ClientMembershipDetail>;
+  }
+
+  async updateClientMembership(
+    membershipId: string,
+    data: UpdateClientMembershipRequest,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.put({
+      url: `/client-memberships/${membershipId}`,
+      jwt,
+      data,
+    });
   }
 }

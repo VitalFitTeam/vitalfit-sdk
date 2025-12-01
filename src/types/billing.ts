@@ -90,3 +90,11 @@ export const mainCurrencies = [
     symbol: '₽',
   },
 ];
+
+export type ClientInvoice = {
+  invoice_id: string;
+  branch_id: string;
+  issue_date: string;
+  total_amount: string;
+  status: string;
+};

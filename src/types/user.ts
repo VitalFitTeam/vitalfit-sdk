@@ -2,8 +2,6 @@ export type ClientProfile = {
   user_id: string;
   qr_code: string;
   scoring: number;
-  status: string;
-  block_justification: string;
   category: string;
   created_at: string;
   updated_at: string;
@@ -18,6 +16,16 @@ export type Role = {
   updated_at: string;
 };
 
+export type ClientMembership = {
+  client_membership_id: string;
+  user_id: string;
+  membership_type_id: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+  invoice_id: string;
+};
+
 export type User = {
   user_id: string;
   first_name: string;
@@ -27,11 +35,14 @@ export type User = {
   identity_document: string;
   birth_date: string;
   gender: string;
+  status: string;
+  block_justification: string;
   profile_picture_url: string;
   is_validated: boolean;
   ClientProfile: ClientProfile;
   role_id: string;
   role: Role;
+  client_membership?: ClientMembership;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -76,4 +87,8 @@ export type UserPaginationOptions = {
   sort?: 'asc' | 'desc';
   search?: string;
   role?: string;
+};
+
+export type QrToken = {
+  token: string;
 };

@@ -1,5 +1,10 @@
 import { Client } from '../client';
-import type { LoginRequest, LoginResponse, SignUpRequest } from '@/types';
+import type {
+  LoginRequest,
+  LoginResponse,
+  Oauth,
+  SignUpRequest,
+} from '@/types';
 
 export class AuthService {
   private client: Client;
@@ -13,6 +18,7 @@ export class AuthService {
     this.validateResetToken = this.validateResetToken.bind(this);
     this.verifyEmail = this.verifyEmail.bind(this);
     this.verifyStaff = this.verifyStaff.bind(this);
+    this.oAuthLogin = this.oAuthLogin.bind(this);
 
     this.logout = this.logout.bind(this);
     this.saveJWT = this.saveJWT.bind(this);
@@ -113,6 +119,13 @@ export class AuthService {
         password: password,
         confirm_password: repeatPassword,
       },
+    });
+  }
+
+  async oAuthLogin(data: Oauth): Promise<void> {
+    await this.client.post({
+      url: '/auth/oauth-login',
+      data,
     });
   }
 }

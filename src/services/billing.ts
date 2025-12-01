@@ -1,10 +1,13 @@
 import type {
   AddPaymentToInvoicePayload,
   AddPaymentToInvoiceResponse,
+  ClientInvoice,
   CreateInvoicePayload,
   CreateInvoiceResponse,
   DataResponse,
   InvoiceDetail,
+  PaginatedTotal,
+  PaginationRequest,
   PaymentDetail,
 } from '@/types';
 import { Client } from '../client';
@@ -19,6 +22,7 @@ export class BillingService {
     this.getInvoiceByID = this.getInvoiceByID.bind(this);
     this.getPaymentByID = this.getPaymentByID.bind(this);
     this.updatePaymentStatus = this.updatePaymentStatus.bind(this);
+    this.getClientInvoices = this.getClientInvoices.bind(this);
   }
   async createInvoice(
     data: CreateInvoicePayload,
@@ -76,5 +80,22 @@ export class BillingService {
         status: status,
       },
     });
+  }
+  async getClientInvoices(
+    jwt: string,
+    { page = 1, limit = 10, sort = 'desc', search }: PaginationRequest,
+    userID?: string,
+  ): Promise<PaginatedTotal<ClientInvoice>> {
+    const response = await this.client.get({
+      url: `/billing/invoices/client/${userID}`,
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<ClientInvoice>;
   }
 }

@@ -26,3 +26,7 @@ export type SignUpRequest = {
   profile_picture_url?: string | null;
   role_name?: string | null;
 };
+
+export type Oauth = {
+  session_token: string;
+};
