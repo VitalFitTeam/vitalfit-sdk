@@ -122,10 +122,11 @@ export class AuthService {
     });
   }
 
-  async oAuthLogin(data: Oauth): Promise<void> {
-    await this.client.post({
+  async oAuthLogin(data: Oauth): Promise<LoginResponse> {
+    const response = await this.client.post({
       url: '/auth/oauth-login',
       data,
     });
+    return response as unknown as LoginResponse;
   }
 }
