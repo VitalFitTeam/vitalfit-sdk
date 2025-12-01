@@ -66,7 +66,7 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.0.72';
+    return '0.0.73';
   }
 }
 
