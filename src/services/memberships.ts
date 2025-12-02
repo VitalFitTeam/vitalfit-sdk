@@ -122,7 +122,7 @@ export class MembershipService {
   async getClientMemberships(
     jwt: string,
     { page = 10, limit = 10, sort = 'desc', search }: PaginationRequest,
-  ): Promise<PaginatedTotal<ClientMembershipItem>> {
+  ): Promise<PaginatedTotal<ClientMembershipItem[]>> {
     const response = await this.client.get({
       url: '/client-memberships',
       jwt,
@@ -133,7 +133,7 @@ export class MembershipService {
         search,
       },
     });
-    return response as unknown as PaginatedTotal<ClientMembershipItem>;
+    return response as unknown as PaginatedTotal<ClientMembershipItem[]>;
   }
 
   async getClientMembershipByID(
