@@ -14,3 +14,4 @@ export * from './packages';
 export * from './billing';
 export * from './booking';
 export * from './access';
+export * from './reports';

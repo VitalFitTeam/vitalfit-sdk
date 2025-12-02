@@ -98,3 +98,12 @@ export type ClientInvoice = {
   total_amount: string;
   status: string;
 };
+
+export type InvoiceList = {
+  client_name: string;
+  invoice_id: string;
+  invoice_number: string;
+  issue_date: string;
+  status: string;
+  total_amount: number;
+};

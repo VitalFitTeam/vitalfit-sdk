@@ -29,3 +29,7 @@ export type BaseModel = UUIDModel & {
 export type DataResponse<T> = {
   data: T;
 };
+
+export type PaginationWithStatus = PaginationRequest & {
+  status?: string;
+};
