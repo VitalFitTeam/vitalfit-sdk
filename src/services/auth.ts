@@ -59,13 +59,14 @@ export class AuthService {
     });
   }
 
-  async signUpStaff(signUpData: SignUpRequest): Promise<void> {
+  async signUpStaff(signUpData: SignUpRequest, jwt: string): Promise<void> {
     const birthDateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!birthDateRegex.test(signUpData.birth_date)) {
       throw new Error('Birth date must be in the format YYYY-MM-DD');
     }
     await this.client.post({
       url: '/auth/register-staff',
+      jwt,
       data: signUpData,
     });
   }
