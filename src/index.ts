@@ -4,7 +4,20 @@ import {
   UserService,
   BranchService,
   PaymentMethodService,
+  InstructorService,
+  RBACService,
+  MembershipService,
+  PublicService,
+  EquipmentService,
+  ScheduleService,
+  PackagesService,
+  BillingService,
+  BookingService,
+  AccessService,
+  ReportService,
 } from './services';
+import { MarketingService } from './services/marketing';
+import { ProductsService } from './services/products';
 
 export class VitalFit {
   private static instance: VitalFit;
@@ -13,6 +26,19 @@ export class VitalFit {
   user: UserService;
   branch: BranchService;
   paymentMethod: PaymentMethodService;
+  instructor: InstructorService;
+  RBAC: RBACService;
+  marketing: MarketingService;
+  membership: MembershipService;
+  public: PublicService;
+  products: ProductsService;
+  equipment: EquipmentService;
+  schedule: ScheduleService;
+  packages: PackagesService;
+  billing: BillingService;
+  booking: BookingService;
+  access: AccessService;
+  report: ReportService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -20,6 +46,19 @@ export class VitalFit {
     this.user = new UserService(this.client);
     this.branch = new BranchService(this.client);
     this.paymentMethod = new PaymentMethodService(this.client);
+    this.instructor = new InstructorService(this.client);
+    this.RBAC = new RBACService(this.client);
+    this.marketing = new MarketingService(this.client);
+    this.membership = new MembershipService(this.client);
+    this.public = new PublicService(this.client);
+    this.products = new ProductsService(this.client);
+    this.equipment = new EquipmentService(this.client);
+    this.schedule = new ScheduleService(this.client);
+    this.packages = new PackagesService(this.client);
+    this.billing = new BillingService(this.client);
+    this.booking = new BookingService(this.client);
+    this.access = new AccessService(this.client);
+    this.report = new ReportService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
@@ -30,7 +69,7 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.0.37';
+    return '0.0.77';
   }
 }
 

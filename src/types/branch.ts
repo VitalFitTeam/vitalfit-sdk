@@ -12,15 +12,6 @@ export type PaginatedBranch = {
   status: 'Active' | 'Inactive' | 'Maintenance';
 };
 
-export type BranchPaymentMethod = {
-  branch_id: string;
-  method_id: string;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-  method: PaymentMethod;
-};
-
 export type OperatingHour = {
   hour_id?: string;
   day_of_week: string;
@@ -46,7 +37,6 @@ export type BranchDetails = {
   manager_first_name: string;
   manager_last_name: string;
   operating_hours: OperatingHour[];
-  payment_methods: BranchPaymentMethod[];
 };
 
 export type BranchStatusCount = {
@@ -70,7 +60,6 @@ export type CreateBranchRequest = {
   max_capacity: number;
   name: string;
   operating_hours: OperatingHour[];
-  payment_methods: string[];
   phone: string;
   state: string;
   status: string;
@@ -92,10 +81,10 @@ export type UpdateBranchRequest = {
   manager_id: string;
   max_capacity: number;
   name: string;
-  operating_hours: UpdateOperatingHour[]
-  payment_methods: string[]; 
+  operating_hours: UpdateOperatingHour[];
+  payment_methods: string[];
   phone: string;
   state: string;
-  status: "Active" | "Inactive" | "Maintenance"; 
+  status: 'Active' | 'Inactive' | 'Maintenance';
   tax_id: string;
 };

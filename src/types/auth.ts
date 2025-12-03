@@ -1,6 +1,7 @@
 export enum UserGender {
   male = 'male',
   female = 'female',
+  preferNotToSay = 'prefer-not-to-say',
 }
 
 export type LoginRequest = {
@@ -24,4 +25,8 @@ export type SignUpRequest = {
   gender?: UserGender | null;
   profile_picture_url?: string | null;
   role_name?: string | null;
+};
+
+export type Oauth = {
+  session_token: string;
 };

@@ -12,6 +12,10 @@ export type Pagination<T> = {
   previous: string | null;
 };
 
+export type PaginatedTotal<T> = Pagination<T> & {
+  total: number;
+};
+
 export type UUIDModel = {
   id: string;
 };
@@ -24,4 +28,8 @@ export type BaseModel = UUIDModel & {
 
 export type DataResponse<T> = {
   data: T;
+};
+
+export type PaginationWithStatus = PaginationRequest & {
+  status?: string;
 };
