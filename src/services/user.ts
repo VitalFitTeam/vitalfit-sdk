@@ -8,6 +8,7 @@ import type {
   UpdateUserRequest,
   UpdateUserStaffRequest,
   QrToken,
+  PaginatedTotal,
 } from '@/types';
 
 export class UserService {
@@ -61,13 +62,13 @@ export class UserService {
   async getClientUsers(
     jwt: string,
     options: UserPaginationOptions = {},
-  ): Promise<DataResponse<User[]>> {
+  ): Promise<PaginatedTotal<User[]>> {
     const response = await this.client.get({
       url: '/user/clients',
       jwt,
       params: options,
     });
-    return response as unknown as DataResponse<User[]>;
+    return response as unknown as PaginatedTotal<User[]>;
   }
 
   async GetUserByID(
