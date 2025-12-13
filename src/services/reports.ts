@@ -81,7 +81,7 @@ export class ReportService {
     end: string,
   ): Promise<DataResponse<ChartData[]>> {
     const response = await this.client.get({
-      url: '/reports/charts/sales-by-payment-method',
+      url: '/reports/charts/top-instructors',
       jwt,
       params: {
         start,
