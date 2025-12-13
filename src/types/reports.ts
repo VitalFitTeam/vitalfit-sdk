@@ -5,10 +5,10 @@ export type ChartData = {
 };
 
 export type TopBranch = {
-  branch_name: string;
-  total_sales: string;
-  percent_change: number;
   label: string;
+  value: string;
+  percent_change: number;
+  status: string;
   trend: 'up' | 'down' | string;
 };
 
