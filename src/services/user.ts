@@ -26,6 +26,8 @@ export class UserService {
     this.updateUserClient = this.updateUserClient.bind(this);
     this.updateUserStaff = this.updateUserStaff.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
+    this.resendActivateOtp = this.resendActivateOtp.bind(this);
+    this.UpgradePassword = this.UpgradePassword.bind(this);
   }
 
   async getStaffUsers(
@@ -132,5 +134,31 @@ export class UserService {
       jwt,
     });
     return response;
+  }
+
+  async resendActivateOtp(email: string): Promise<void> {
+    await this.client.post({
+      url: `/auth/resend-activation`,
+      data: {
+        email: email,
+      },
+    });
+  }
+
+  async UpgradePassword(
+    jwt: string,
+    currentPassword: string,
+    newPassword: string,
+    confirmPassword: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/user/change-password`,
+      jwt,
+      data: {
+        current_password: currentPassword,
+        new_password: newPassword,
+        confirm_password: confirmPassword,
+      },
+    });
   }
 }
