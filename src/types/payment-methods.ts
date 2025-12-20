@@ -4,6 +4,10 @@ export type PaymentMethod = {
   type: string;
   description: string;
   processing_type: string;
+  configuration: PaymentConfiguration;
+  visibility: BranchPaymentVisibility;
+  surcharge_fixed: number;
+  surcharge_percentage: number;
   global_status: boolean;
   created_at: string;
   updated_at: string;
