@@ -1,4 +1,12 @@
-import type { Banner, CreateBanner, UpdateBanner } from '@/types';
+import type {
+  Banner,
+  CreateBanner,
+  CreatePromotion,
+  PaginatedTotal,
+  PaginationRequest,
+  Promotion,
+  UpdateBanner,
+} from '@/types';
 import { Client } from '../client';
 import type { DataResponse } from '../types';
 
@@ -12,6 +20,12 @@ export class MarketingService {
     this.getBannerByID = this.getBannerByID.bind(this);
     this.updateBanner = this.updateBanner.bind(this);
     this.deleteBanner = this.deleteBanner.bind(this);
+
+    this.createPromotion = this.createPromotion.bind(this);
+    this.getPromotion = this.getPromotion.bind(this);
+    this.getPromotionByID = this.getPromotionByID.bind(this);
+    this.updatePromotion = this.updatePromotion.bind(this);
+    this.deletePromotion = this.deletePromotion.bind(this);
   }
 
   async createBanners(BannerData: CreateBanner, jwt: string): Promise<void> {
@@ -56,6 +70,64 @@ export class MarketingService {
   async deleteBanner(BannerId: string, jwt: string): Promise<void> {
     await this.client.delete({
       url: `/marketing/banners/${BannerId}`,
+      jwt,
+    });
+  }
+
+  async createPromotion(
+    promotionData: CreatePromotion,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: '/marketing/promotions',
+      jwt,
+      data: promotionData,
+    });
+  }
+
+  async getPromotion(
+    jwt: string,
+    { page = 10, limit = 10, sort = 'desc', search }: PaginationRequest,
+  ): Promise<PaginatedTotal<Promotion[]>> {
+    const response = await this.client.get({
+      url: '/marketing/promotions',
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<Promotion[]>;
+  }
+
+  async getPromotionByID(
+    promotionId: string,
+    jwt: string,
+  ): Promise<DataResponse<Promotion>> {
+    const response = await this.client.get({
+      url: `/marketing/promotions/${promotionId}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<Promotion>;
+  }
+
+  async updatePromotion(
+    promotionId: string,
+    promotionData: CreatePromotion,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.put({
+      url: `/marketing/promotions/${promotionId}`,
+      jwt,
+      data: promotionData,
+    });
+  }
+
+  async deletePromotion(promotionId: string, jwt: string): Promise<void> {
+    await this.client.delete({
+      url: `/marketing/promotions/${promotionId}`,
       jwt,
     });
   }

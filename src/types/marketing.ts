@@ -6,6 +6,24 @@ export type Banner = {
   name?: string;
 };
 
+export type Promotion = {
+  code: string;
+  created_at: string;
+  discount_type: string;
+  discount_value: number;
+  end_date: string;
+  is_active: boolean;
+  name: string;
+  promotion_id: string;
+  start_date: string;
+  updated_at: string;
+};
+
+export type CreatePromotion = Omit<
+  Promotion,
+  'promotion_id' | 'created_at' | 'updated_at'
+>;
+
 export type CreateBanner = Omit<Banner, 'banner_id'>;
 
 export type UpdateBanner = {
