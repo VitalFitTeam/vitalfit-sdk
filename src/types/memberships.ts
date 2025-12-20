@@ -75,6 +75,11 @@ export type CancellationReason = {
   is_active: boolean;
 };
 
+export type CreateCancellationReason = {
+  description: string;
+  is_active: boolean;
+};
+
 export type ClientMembershipDetail = ClientMembershipItem & {
   cancellation_reason?: CancellationReason;
 };

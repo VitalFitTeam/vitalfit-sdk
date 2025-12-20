@@ -1,6 +1,8 @@
 import type {
+  CancellationReason,
   ClientMembershipDetail,
   ClientMembershipItem,
+  CreateCancellationReason,
   CreateMembershipType,
   DataResponse,
   MembershipsSummary,
@@ -29,6 +31,11 @@ export class MembershipService {
     this.getClientMemberships = this.getClientMemberships.bind(this);
     this.getClientMembershipByID = this.getClientMembershipByID.bind(this);
     this.updateClientMembership = this.updateClientMembership.bind(this);
+
+    this.createCancelReason = this.createCancelReason.bind(this);
+    this.getCancelReasons = this.getCancelReasons.bind(this);
+    this.updateCancelReason = this.updateCancelReason.bind(this);
+    this.deleteCancelReason = this.deleteCancelReason.bind(this);
   }
 
   async createMembershipType(
@@ -156,6 +163,53 @@ export class MembershipService {
       url: `/client-memberships/${membershipId}`,
       jwt,
       data,
+    });
+  }
+
+  async createCancelReason(
+    data: CreateCancellationReason,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: '/memberships/cancellation-reasons',
+      jwt,
+      data,
+    });
+  }
+
+  async getCancelReasons(
+    jwt: string,
+    { page = 10, limit = 10, sort = 'desc', search }: PaginationRequest,
+  ): Promise<PaginatedTotal<CancellationReason[]>> {
+    const response = await this.client.get({
+      url: '/memberships/cancellation-reasons',
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<CancellationReason[]>;
+  }
+
+  async updateCancelReason(
+    reasonId: string,
+    data: CreateCancellationReason,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.put({
+      url: `/memberships/cancellation-reasons/${reasonId}`,
+      jwt,
+      data,
+    });
+  }
+
+  async deleteCancelReason(reasonId: string, jwt: string): Promise<void> {
+    await this.client.delete({
+      url: `/memberships/cancellation-reasons/${reasonId}`,
+      jwt,
     });
   }
 }
