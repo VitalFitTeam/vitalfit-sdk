@@ -25,3 +25,7 @@ export type BranchScheduleResponse = {
 export type BookClassRequest = {
   user_id: string;
 };
+
+export type ClassBookingCount = {
+  count: number;
+};

@@ -1,6 +1,7 @@
 import type {
   BookClassRequest,
   BranchScheduleResponse,
+  ClassBookingCount,
   ClientBookingResponse,
   DataResponse,
 } from '@/types';
@@ -15,6 +16,7 @@ export class BookingService {
     this.cancelBooking = this.cancelBooking.bind(this);
     this.getClientBooking = this.getClientBooking.bind(this);
     this.getClientBranchBooking = this.getClientBranchBooking.bind(this);
+    this.getClassBookingCount = this.getClassBookingCount.bind(this);
   }
 
   async bookClass(
@@ -57,5 +59,15 @@ export class BookingService {
       jwt,
     });
     return response as unknown as DataResponse<BranchScheduleResponse[]>;
+  }
+  async getClassBookingCount(
+    classID: string,
+    jwt: string,
+  ): Promise<ClassBookingCount> {
+    const response = await this.client.get({
+      url: `/bookings/${classID}/count`,
+      jwt,
+    });
+    return response as unknown as ClassBookingCount;
   }
 }
