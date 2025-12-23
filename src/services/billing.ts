@@ -110,6 +110,7 @@ export class BillingService {
       search,
       status,
     }: PaginationWithStatus,
+    branchID?: string,
   ): Promise<PaginatedTotal<InvoiceList[]>> {
     const response = await this.client.get({
       url: '/billing/invoices',
@@ -120,6 +121,7 @@ export class BillingService {
         sort,
         search,
         status,
+        branch_id: branchID,
       },
     });
     return response as unknown as PaginatedTotal<InvoiceList[]>;
