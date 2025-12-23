@@ -17,3 +17,4 @@ export * from './booking';
 export * from './payment';
 export * from './access';
 export * from './reports';
+export * from './staff';

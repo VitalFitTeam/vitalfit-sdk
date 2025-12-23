@@ -15,6 +15,7 @@ import {
   BookingService,
   AccessService,
   ReportService,
+  StaffService,
 } from './services';
 import { MarketingService } from './services/marketing';
 import { ProductsService } from './services/products';
@@ -39,6 +40,7 @@ export class VitalFit {
   booking: BookingService;
   access: AccessService;
   report: ReportService;
+  staff: StaffService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -59,6 +61,7 @@ export class VitalFit {
     this.booking = new BookingService(this.client);
     this.access = new AccessService(this.client);
     this.report = new ReportService(this.client);
+    this.staff = new StaffService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {

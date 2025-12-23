@@ -15,3 +15,4 @@ export * from './billing';
 export * from './booking';
 export * from './access';
 export * from './reports';
+export * from './staff';
