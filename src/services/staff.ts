@@ -47,7 +47,7 @@ export class StaffService {
       url: `/branches/${branchId}/staff`,
       jwt,
       data: {
-        staff: staffIds,
+        staff_ids: staffIds,
       },
     });
   }
