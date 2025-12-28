@@ -37,6 +37,11 @@ export class ReportService {
     this.retentionRateKPI = this.retentionRateKPI.bind(this);
     this.cohortAnalysis = this.cohortAnalysis.bind(this);
     this.newVsRecurringChart = this.newVsRecurringChart.bind(this);
+    this.instructorNextClass = this.instructorNextClass.bind(this);
+    this.instructorStudentCountKPI = this.instructorStudentCountKPI.bind(this);
+    this.instructorMonthlyClassesCount =
+      this.instructorMonthlyClassesCount.bind(this);
+    this.instructorClassesToday = this.instructorClassesToday.bind(this);
   }
   async mostUsedServices(
     jwt: string,
@@ -248,5 +253,37 @@ export class ReportService {
       params: branchId ? { branch_id: branchId } : undefined,
     });
     return response as unknown as DataResponse<StackedChartData[]>;
+  }
+  async instructorNextClass(jwt: string): Promise<DataResponse<string>> {
+    const response = await this.client.get({
+      url: '/reports/instructors/next-class',
+      jwt,
+    });
+    return response as unknown as DataResponse<string>;
+  }
+  async instructorStudentCountKPI(jwt: string): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/instructors/student-count',
+      jwt,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async instructorMonthlyClassesCount(
+    jwt: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/instructors/classes-count',
+      jwt,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async instructorClassesToday(
+    jwt: string,
+  ): Promise<DataResponse<ClassScheduleItem[]>> {
+    const response = await this.client.get({
+      url: '/reports/instructors/classes-today',
+      jwt,
+    });
+    return response as unknown as DataResponse<ClassScheduleItem[]>;
   }
 }
