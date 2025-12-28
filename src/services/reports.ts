@@ -7,7 +7,9 @@ import type {
   ClassScheduleItem,
   CohortRetention,
   DataResponse,
+  FinancialSummary,
   GlobalSalesStats,
+  HeatmapPoint,
   KPICard,
   RecentAttendanceItem,
   StackedChartData,
@@ -53,6 +55,13 @@ export class ReportService {
     this.totalTransactionsKPI = this.totalTransactionsKPI.bind(this);
     this.monthlyCashFlowChart = this.monthlyCashFlowChart.bind(this);
     this.averageCLVKPI = this.averageCLVKPI.bind(this);
+    this.monthlySalesKPI = this.monthlySalesKPI.bind(this);
+    this.activeMembersKPI = this.activeMembersKPI.bind(this);
+    this.occupancyKPI = this.occupancyKPI.bind(this);
+    this.weeklySalesChart = this.weeklySalesChart.bind(this);
+    this.activityHeatmap = this.activityHeatmap.bind(this);
+    this.classOccupancyChart = this.classOccupancyChart.bind(this);
+    this.financialSummary = this.financialSummary.bind(this);
   }
   async mostUsedServices(
     jwt: string,
@@ -399,5 +408,82 @@ export class ReportService {
       params: branchId ? { branch_id: branchId } : undefined,
     });
     return response as unknown as DataResponse<KPICard>;
+  }
+  async monthlySalesKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/monthly-sales',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async activeMembersKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/active-members',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async occupancyKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/occupancy',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async weeklySalesChart(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<ChartData[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/weekly-sales',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<ChartData[]>;
+  }
+  async activityHeatmap(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<HeatmapPoint[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/activity-heatmap',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<HeatmapPoint[]>;
+  }
+  async classOccupancyChart(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<ChartData[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/class-occupancy',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<ChartData[]>;
+  }
+  async financialSummary(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<FinancialSummary>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/financial-summary',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<FinancialSummary>;
   }
 }
