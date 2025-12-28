@@ -107,3 +107,7 @@ export type InvoiceList = {
   status: string;
   total_amount: number;
 };
+
+export type TaxRate = {
+  tax_rate: number;
+};

@@ -11,6 +11,7 @@ import type {
   PaginationRequest,
   PaginationWithStatus,
   PaymentDetail,
+  TaxRate,
 } from '@/types';
 import { Client } from '../client';
 
@@ -26,6 +27,14 @@ export class BillingService {
     this.updatePaymentStatus = this.updatePaymentStatus.bind(this);
     this.getClientInvoices = this.getClientInvoices.bind(this);
     this.getInvoices = this.getInvoices.bind(this);
+    this.getTaxRateByBranch = this.getTaxRateByBranch.bind(this);
+  }
+  async getTaxRateByBranch(jwt: string, branchId: string): Promise<TaxRate> {
+    const response = await this.client.get({
+      url: `/billing/tax-rate/${branchId}`,
+      jwt,
+    });
+    return response as unknown as TaxRate;
   }
   async createInvoice(
     data: CreateInvoicePayload,
