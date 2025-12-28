@@ -4,10 +4,12 @@ import type {
   ChartData,
   ClassCapacityStats,
   ClassScheduleItem,
+  CohortRetention,
   DataResponse,
   GlobalSalesStats,
   KPICard,
   RecentAttendanceItem,
+  StackedChartData,
   TopBranch,
   TotalSalesStats,
 } from '@/types';
@@ -33,6 +35,8 @@ export class ReportService {
     this.recentCheckIns = this.recentCheckIns.bind(this);
     this.newClientsKPI = this.newClientsKPI.bind(this);
     this.retentionRateKPI = this.retentionRateKPI.bind(this);
+    this.cohortAnalysis = this.cohortAnalysis.bind(this);
+    this.newVsRecurringChart = this.newVsRecurringChart.bind(this);
   }
   async mostUsedServices(
     jwt: string,
@@ -53,6 +57,7 @@ export class ReportService {
     jwt: string,
     start: string,
     end: string,
+    branchId?: string,
   ): Promise<DataResponse<ChartData[]>> {
     const response = await this.client.get({
       url: '/reports/charts/sales-by-category',
@@ -60,6 +65,7 @@ export class ReportService {
       params: {
         start,
         end,
+        ...(branchId ? { branch_id: branchId } : {}),
       },
     });
     return response as unknown as DataResponse<ChartData[]>;
@@ -114,7 +120,7 @@ export class ReportService {
       url: '/reports/stats/top-branches',
       jwt,
     });
-    return response as unknown as DataResponse<BranchPerformance[]>;
+    return response as unknown as DataResponse<TopBranch[]>;
   }
   async globalStats(jwt: string): Promise<DataResponse<TopBranch[]>> {
     const response = await this.client.get({
@@ -220,5 +226,27 @@ export class ReportService {
       params: branchId ? { branch_id: branchId } : undefined,
     });
     return response as unknown as DataResponse<KPICard>;
+  }
+  async cohortAnalysis(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<CohortRetention[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/cohort-analysis',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<CohortRetention[]>;
+  }
+  async newVsRecurringChart(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<StackedChartData[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/new-vs-recurring',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<StackedChartData[]>;
   }
 }
