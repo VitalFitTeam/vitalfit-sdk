@@ -1,5 +1,6 @@
 import { Client } from '@/client';
 import type {
+  BillingMatrix,
   BranchPerformance,
   ChartData,
   ClassCapacityStats,
@@ -42,6 +43,16 @@ export class ReportService {
     this.instructorMonthlyClassesCount =
       this.instructorMonthlyClassesCount.bind(this);
     this.instructorClassesToday = this.instructorClassesToday.bind(this);
+    this.weeklyRevenueKPI = this.weeklyRevenueKPI.bind(this);
+    this.monthlyRecurringRevenueKPI =
+      this.monthlyRecurringRevenueKPI.bind(this);
+    this.accountsReceivableKPI = this.accountsReceivableKPI.bind(this);
+    this.averageTicketKPI = this.averageTicketKPI.bind(this);
+    this.monthlyRevenueChart = this.monthlyRevenueChart.bind(this);
+    this.billingByBranchMatrix = this.billingByBranchMatrix.bind(this);
+    this.totalTransactionsKPI = this.totalTransactionsKPI.bind(this);
+    this.monthlyCashFlowChart = this.monthlyCashFlowChart.bind(this);
+    this.averageCLVKPI = this.averageCLVKPI.bind(this);
   }
   async mostUsedServices(
     jwt: string,
@@ -285,5 +296,108 @@ export class ReportService {
       jwt,
     });
     return response as unknown as DataResponse<ClassScheduleItem[]>;
+  }
+  async weeklyRevenueKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/weekly-revenue',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async monthlyRecurringRevenueKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/mrr',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async accountsReceivableKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/accounts-receivable',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async averageTicketKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/average-ticket',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async monthlyRevenueChart(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<ChartData[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/monthly-revenue',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<ChartData[]>;
+  }
+  async billingByBranchMatrix(
+    jwt: string,
+    start?: string,
+    end?: string,
+  ): Promise<DataResponse<BillingMatrix>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/billing-matrix',
+      jwt,
+      params: {
+        ...(start ? { start } : {}),
+        ...(end ? { end } : {}),
+      },
+    });
+    return response as unknown as DataResponse<BillingMatrix>;
+  }
+  async totalTransactionsKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/total-transactions',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
+  }
+  async monthlyCashFlowChart(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<ChartData[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/cash-flow',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<ChartData[]>;
+  }
+  async averageCLVKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/clv',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
   }
 }
