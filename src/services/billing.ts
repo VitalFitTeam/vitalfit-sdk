@@ -36,6 +36,7 @@ export class BillingService {
     });
     return response as unknown as TaxRate;
   }
+
   async createInvoice(
     data: CreateInvoicePayload,
     jwt: string,

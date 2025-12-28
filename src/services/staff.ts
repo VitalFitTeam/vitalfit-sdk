@@ -1,4 +1,11 @@
-import type { BranchStaff, DataResponse, Staff } from '@/types';
+import type {
+  BranchStaff,
+  DataResponse,
+  PaginatedTotal,
+  PaginationRequest,
+  Staff,
+  UserPaginationOptions,
+} from '@/types';
 import { Client } from '../client';
 
 export class StaffService {
@@ -30,12 +37,26 @@ export class StaffService {
   async getBranchstaff(
     branchId: string,
     jwt: string,
-  ): Promise<DataResponse<Staff[]>> {
+    {
+      page = 10,
+      limit = 10,
+      sort = 'desc',
+      search,
+      role,
+    }: UserPaginationOptions,
+  ): Promise<PaginatedTotal<Staff[]>> {
     const response = await this.client.get({
       url: `/branches/${branchId}/staff`,
       jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+        role,
+      },
     });
-    return response as unknown as DataResponse<Staff[]>;
+    return response as unknown as PaginatedTotal<Staff[]>;
   }
 
   async AssignBranchStaff(
