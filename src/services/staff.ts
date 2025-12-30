@@ -18,10 +18,20 @@ export class StaffService {
     this.getBranchstaff = this.getBranchstaff.bind(this);
     this.AssignBranchStaff = this.AssignBranchStaff.bind(this);
     this.RemoveBranchStaff = this.RemoveBranchStaff.bind(this);
+    this.getInstructorBranches = this.getInstructorBranches.bind(this);
   }
   async getStaffBranches(jwt: string): Promise<DataResponse<BranchStaff[]>> {
     const response = await this.client.get({
       url: '/staff/branches',
+      jwt,
+    });
+    return response as unknown as DataResponse<BranchStaff[]>;
+  }
+  async getInstructorBranches(
+    jwt: string,
+  ): Promise<DataResponse<BranchStaff[]>> {
+    const response = await this.client.get({
+      url: '/staff/instructor-branches',
       jwt,
     });
     return response as unknown as DataResponse<BranchStaff[]>;
