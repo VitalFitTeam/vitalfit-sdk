@@ -111,3 +111,7 @@ export type InvoiceList = {
 export type TaxRate = {
   tax_rate: number;
 };
+
+export interface ExchangeRateResponse {
+  currency: number;
+}

@@ -5,6 +5,7 @@ import type {
   CreateInvoicePayload,
   CreateInvoiceResponse,
   DataResponse,
+  ExchangeRateResponse,
   InvoiceDetail,
   InvoiceList,
   PaginatedTotal,
@@ -28,6 +29,7 @@ export class BillingService {
     this.getClientInvoices = this.getClientInvoices.bind(this);
     this.getInvoices = this.getInvoices.bind(this);
     this.getTaxRateByBranch = this.getTaxRateByBranch.bind(this);
+    this.getExchangeRate = this.getExchangeRate.bind(this);
   }
   async getTaxRateByBranch(jwt: string, branchId: string): Promise<TaxRate> {
     const response = await this.client.get({
@@ -35,6 +37,18 @@ export class BillingService {
       jwt,
     });
     return response as unknown as TaxRate;
+  }
+
+  async getExchangeRate(
+    jwt: string,
+    currency: string,
+  ): Promise<ExchangeRateResponse> {
+    const response = await this.client.get({
+      url: `/billing/rates/${currency}`,
+      jwt,
+    });
+
+    return response as unknown as ExchangeRateResponse;
   }
 
   async createInvoice(
