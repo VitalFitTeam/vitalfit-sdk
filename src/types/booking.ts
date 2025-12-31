@@ -29,3 +29,14 @@ export type BookClassRequest = {
 export type ClassBookingCount = {
   count: number;
 };
+
+export type BookingParticipant = {
+  booking_id: string;
+  created_at: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  status: string;
+  user_id: string;
+};
