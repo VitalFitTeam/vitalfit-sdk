@@ -16,3 +16,4 @@ export * from './booking';
 export * from './access';
 export * from './reports';
 export * from './staff';
+export * from './wishlist';

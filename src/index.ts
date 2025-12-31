@@ -16,6 +16,7 @@ import {
   AccessService,
   ReportService,
   StaffService,
+  WishListService,
 } from './services';
 import { MarketingService } from './services/marketing';
 import { ProductsService } from './services/products';
@@ -41,7 +42,7 @@ export class VitalFit {
   access: AccessService;
   report: ReportService;
   staff: StaffService;
-
+  wishList: WishListService;
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
     this.auth = new AuthService(this.client);
@@ -62,6 +63,7 @@ export class VitalFit {
     this.access = new AccessService(this.client);
     this.report = new ReportService(this.client);
     this.staff = new StaffService(this.client);
+    this.wishList = new WishListService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
@@ -72,7 +74,7 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.1.9';
+    return '0.2.0';
   }
 }
 

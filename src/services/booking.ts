@@ -6,6 +6,7 @@ import type {
   ClientBookingResponse,
   DataResponse,
   PaginatedTotal,
+  PaginationRequest,
 } from '@/types';
 import { Client } from '../client';
 //booking
@@ -76,10 +77,16 @@ export class BookingService {
   async getBookingClass(
     classID: string,
     jwt: string,
+    { page = 10, limit = 10, sort = 'desc' }: PaginationRequest,
   ): Promise<PaginatedTotal<BookingParticipant>> {
     const response = await this.client.get({
       url: `/bookings/class/${classID}`,
       jwt,
+      params: {
+        page,
+        limit,
+        sort,
+      },
     });
     return response as unknown as PaginatedTotal<BookingParticipant>;
   }
