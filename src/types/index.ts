@@ -19,3 +19,4 @@ export * from './access';
 export * from './reports';
 export * from './staff';
 export * from './wishlist';
+export * from './policies';
