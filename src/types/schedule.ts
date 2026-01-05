@@ -16,6 +16,8 @@ export type CreateClassPayload = {
   is_visible: boolean;
   max_capacity: number;
   notes: string;
+  recurrence?: 'daily' | 'weekly' | 'none';
+  recurrence_until?: string;
   service_id: string;
   starts_at: string;
 };
