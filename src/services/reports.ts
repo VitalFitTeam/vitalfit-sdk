@@ -1,14 +1,12 @@
 import { Client } from '@/client';
 import type {
   BillingMatrix,
-  BranchPerformance,
   ChartData,
   ClassCapacityStats,
   ClassScheduleItem,
   CohortRetention,
   DataResponse,
   FinancialSummary,
-  GlobalSalesStats,
   HeatmapPoint,
   KPICard,
   RecentAttendanceItem,
@@ -62,6 +60,7 @@ export class ReportService {
     this.activityHeatmap = this.activityHeatmap.bind(this);
     this.classOccupancyChart = this.classOccupancyChart.bind(this);
     this.financialSummary = this.financialSummary.bind(this);
+    this.salesByDemography = this.salesByDemography.bind(this);
   }
   async mostUsedServices(
     jwt: string,
@@ -485,5 +484,24 @@ export class ReportService {
       params: branchId ? { branch_id: branchId } : undefined,
     });
     return response as unknown as DataResponse<FinancialSummary>;
+  }
+  async salesByDemography(
+    jwt: string,
+    branchId: string | undefined,
+    dimension: 'age' | 'gender',
+    start?: string,
+    end?: string,
+  ): Promise<DataResponse<ChartData[]>> {
+    const response = await this.client.get({
+      url: '/reports/charts/sales-by-demographics',
+      jwt,
+      params: {
+        dimension,
+        ...(start ? { start } : {}),
+        ...(end ? { end } : {}),
+        ...(branchId ? { branch_id: branchId } : {}),
+      },
+    });
+    return response as unknown as DataResponse<ChartData[]>;
   }
 }
