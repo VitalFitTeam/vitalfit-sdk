@@ -115,3 +115,15 @@ export type TaxRate = {
 export interface ExchangeRateResponse {
   currency: number;
 }
+
+export type FiscalDocument = {
+  created_at: string;
+  document_type_id: string;
+  name: string;
+  prefix: string;
+};
+
+export type CreateFiscalDocumentRequest = {
+  name: string;
+  prefix: string;
+};

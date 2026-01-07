@@ -2,10 +2,12 @@ import type {
   AddPaymentToInvoicePayload,
   AddPaymentToInvoiceResponse,
   ClientInvoice,
+  CreateFiscalDocumentRequest,
   CreateInvoicePayload,
   CreateInvoiceResponse,
   DataResponse,
   ExchangeRateResponse,
+  FiscalDocument,
   InvoiceDetail,
   InvoiceList,
   PaginatedTotal,
@@ -30,6 +32,11 @@ export class BillingService {
     this.getInvoices = this.getInvoices.bind(this);
     this.getTaxRateByBranch = this.getTaxRateByBranch.bind(this);
     this.getExchangeRate = this.getExchangeRate.bind(this);
+    this.getFiscalDocuments = this.getFiscalDocuments.bind(this);
+    this.createFiscalDocument = this.createFiscalDocument.bind(this);
+    this.getFiscalDocumentById = this.getFiscalDocumentById.bind(this);
+    this.updateFiscalDocument = this.updateFiscalDocument.bind(this);
+    this.deleteFiscalDocument = this.deleteFiscalDocument.bind(this);
   }
   async getTaxRateByBranch(jwt: string, branchId: string): Promise<TaxRate> {
     const response = await this.client.get({
@@ -149,5 +156,59 @@ export class BillingService {
       },
     });
     return response as unknown as PaginatedTotal<InvoiceList[]>;
+  }
+  async getFiscalDocuments(
+    jwt: string,
+    { page = 1, limit = 10, sort = 'desc', search }: PaginationRequest,
+  ): Promise<PaginatedTotal<FiscalDocument[]>> {
+    const response = await this.client.get({
+      url: '/billing/fiscal-document-types',
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<FiscalDocument[]>;
+  }
+  async createFiscalDocument(
+    jwt: string,
+    data: CreateFiscalDocumentRequest,
+  ): Promise<void> {
+    await this.client.post({
+      url: '/billing/fiscal-document-types',
+      jwt,
+      data,
+    });
+  }
+  async getFiscalDocumentById(
+    jwt: string,
+    id: string,
+  ): Promise<DataResponse<FiscalDocument>> {
+    const response = await this.client.get({
+      url: `/billing/fiscal-document-types/${id}`,
+      jwt,
+    });
+    return response as unknown as DataResponse<FiscalDocument>;
+  }
+
+  async updateFiscalDocument(
+    jwt: string,
+    id: string,
+    data: CreateFiscalDocumentRequest,
+  ): Promise<void> {
+    await this.client.patch({
+      url: `/billing/fiscal-document-types/${id}`,
+      jwt,
+      data,
+    });
+  }
+  async deleteFiscalDocument(jwt: string, id: string): Promise<void> {
+    await this.client.delete({
+      url: `/billing/fiscal-document-types/${id}`,
+      jwt,
+    });
   }
 }
