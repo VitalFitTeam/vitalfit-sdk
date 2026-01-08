@@ -11,6 +11,7 @@ export type LoginRequest = {
 };
 
 export type LoginResponse = {
+  refresh_token: string;
   token: string;
 };
 
@@ -29,4 +30,19 @@ export type SignUpRequest = {
 
 export type Oauth = {
   session_token: string;
+};
+
+export type UserSession = {
+  id: string;
+  user_id: string;
+  refresh_token: string;
+  user_agent: string;
+  client_ip: string;
+  is_blocked: boolean;
+  expires_at: string;
+  created_at: string;
+};
+
+export type RenewTokenRequest = {
+  refresh_token: string;
 };

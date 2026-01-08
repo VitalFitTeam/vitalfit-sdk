@@ -1,9 +1,11 @@
 import { Client } from '../client';
 import type {
+  DataResponse,
   LoginRequest,
   LoginResponse,
   Oauth,
   SignUpRequest,
+  UserSession,
 } from '@/types';
 
 export class AuthService {
@@ -22,6 +24,68 @@ export class AuthService {
 
     this.logout = this.logout.bind(this);
     this.saveJWT = this.saveJWT.bind(this);
+
+    this.renewToken = this.renewToken.bind(this);
+    this.revokeAllSessions = this.revokeAllSessions.bind(this);
+    this.revokeAllSessionsByUserID = this.revokeAllSessionsByUserID.bind(this);
+    this.revokeSession = this.revokeSession.bind(this);
+    this.revokeSessionByID = this.revokeSessionByID.bind(this);
+    this.getUserSessions = this.getUserSessions.bind(this);
+    this.getUserSessionByID = this.getUserSessionByID.bind(this);
+  }
+  async renewToken(refresh_token: string): Promise<LoginResponse> {
+    const response = await this.client.post({
+      url: '/auth/refresh',
+      data: {
+        refresh_token,
+      },
+    });
+    return response as unknown as LoginResponse;
+  }
+
+  async revokeAllSessions(jwt: string): Promise<void> {
+    await this.client.delete({
+      url: '/user/sessions',
+      jwt,
+    });
+  }
+
+  async revokeAllSessionsByUserID(userId: string, jwt: string): Promise<void> {
+    await this.client.delete({
+      url: `/user/${userId}/sessions`,
+      jwt,
+    });
+  }
+
+  async revokeSession(sessionId: string, jwt: string): Promise<void> {
+    await this.client.delete({
+      url: `/user/sessions/${sessionId}`,
+      jwt,
+    });
+  }
+
+  async revokeSessionByID(sessionId: string, jwt: string): Promise<void> {
+    await this.client.delete({
+      url: `/user/sessions/${sessionId}`,
+      jwt,
+    });
+  }
+  async getUserSessions(jwt: string): Promise<DataResponse<UserSession[]>> {
+    const response = await this.client.get({
+      url: '/user/sessions',
+      jwt,
+    });
+    return response as unknown as DataResponse<UserSession[]>;
+  }
+  async getUserSessionByID(
+    userId: string,
+    jwt: string,
+  ): Promise<DataResponse<UserSession[]>> {
+    const response = await this.client.get({
+      url: `/user/${userId}/sessions`,
+      jwt,
+    });
+    return response as unknown as DataResponse<UserSession[]>;
   }
 
   async login({
