@@ -29,7 +29,7 @@ export class BookingService {
     jwt: string,
   ): Promise<void> {
     await this.client.post({
-      url: `/bookings/${classID}/book`,
+      url: `/schedule/${classID}/book`,
       jwt,
       data,
     });
@@ -69,7 +69,7 @@ export class BookingService {
     jwt: string,
   ): Promise<ClassBookingCount> {
     const response = await this.client.get({
-      url: `/bookings/${classID}/count`,
+      url: `/schedule/${classID}/bookings/count`,
       jwt,
     });
     return response as unknown as ClassBookingCount;
