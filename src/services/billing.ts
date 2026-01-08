@@ -199,7 +199,7 @@ export class BillingService {
     id: string,
     data: CreateFiscalDocumentRequest,
   ): Promise<void> {
-    await this.client.patch({
+    await this.client.put({
       url: `/billing/fiscal-document-types/${id}`,
       jwt,
       data,
