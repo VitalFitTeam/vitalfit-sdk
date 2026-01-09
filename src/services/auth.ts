@@ -24,6 +24,7 @@ export class AuthService {
 
     this.logout = this.logout.bind(this);
     this.saveJWT = this.saveJWT.bind(this);
+    this.saveTokens = this.saveTokens.bind(this);
 
     this.renewToken = this.renewToken.bind(this);
     this.revokeAllSessions = this.revokeAllSessions.bind(this);
@@ -105,11 +106,16 @@ export class AuthService {
   }
 
   logout(): void {
-    this.client.removeJWT();
+    this.client.removeTokens();
   }
 
   saveJWT(jwt: string): void {
-    this.client.setJWT(jwt);
+    // Mantenemos compatibilidad, pero idealmente se debería usar saveTokens
+    this.client.setTokens(jwt, '');
+  }
+
+  saveTokens(access: string, refresh: string): void {
+    this.client.setTokens(access, refresh);
   }
 
   async signUp(signUpData: SignUpRequest): Promise<void> {
