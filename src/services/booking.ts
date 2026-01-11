@@ -78,7 +78,7 @@ export class BookingService {
     classID: string,
     jwt: string,
     { page = 10, limit = 10, sort = 'desc' }: PaginationRequest,
-  ): Promise<PaginatedTotal<BookingParticipant>> {
+  ): Promise<PaginatedTotal<BookingParticipant[]>> {
     const response = await this.client.get({
       url: `/bookings/class/${classID}`,
       jwt,
@@ -88,6 +88,6 @@ export class BookingService {
         sort,
       },
     });
-    return response as unknown as PaginatedTotal<BookingParticipant>;
+    return response as unknown as PaginatedTotal<BookingParticipant[]>;
   }
 }
