@@ -19,3 +19,4 @@ export * from './staff';
 export * from './wishlist';
 export * from './policies';
 export * from './audit';
+export * from './notifications';

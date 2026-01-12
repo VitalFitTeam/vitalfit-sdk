@@ -5,6 +5,7 @@ import type {
   PaginatedTotal,
   PaginationRequest,
   Promotion,
+  RandomBanner,
   UpdateBanner,
 } from '@/types';
 import { Client } from '../client';
@@ -26,6 +27,8 @@ export class MarketingService {
     this.getPromotionByID = this.getPromotionByID.bind(this);
     this.updatePromotion = this.updatePromotion.bind(this);
     this.deletePromotion = this.deletePromotion.bind(this);
+
+    this.getRandomBanner = this.getRandomBanner.bind(this);
   }
 
   async createBanners(BannerData: CreateBanner, jwt: string): Promise<void> {
@@ -130,5 +133,12 @@ export class MarketingService {
       url: `/marketing/promotions/${promotionId}`,
       jwt,
     });
+  }
+
+  async getRandomBanner(): Promise<DataResponse<RandomBanner>> {
+    const response = await this.client.get({
+      url: '/marketing/banners/random',
+    });
+    return response as unknown as DataResponse<RandomBanner>;
   }
 }

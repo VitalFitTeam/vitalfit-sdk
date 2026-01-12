@@ -6,6 +6,11 @@ export type Banner = {
   name?: string;
 };
 
+export type RandomBanner = {
+  image_url: string;
+  service_id: string;
+};
+
 export type Promotion = {
   code: string;
   created_at: string;
