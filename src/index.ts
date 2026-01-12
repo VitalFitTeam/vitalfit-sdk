@@ -19,6 +19,7 @@ import {
   WishListService,
   PolicyService,
   AuditService,
+  NotificationService,
 } from './services';
 import { MarketingService } from './services/marketing';
 import { ProductsService } from './services/products';
@@ -47,6 +48,7 @@ export class VitalFit {
   wishList: WishListService;
   policy: PolicyService;
   audit: AuditService;
+  notification: NotificationService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -71,6 +73,7 @@ export class VitalFit {
     this.wishList = new WishListService(this.client);
     this.policy = new PolicyService(this.client);
     this.audit = new AuditService(this.client);
+    this.notification = new NotificationService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
@@ -81,7 +84,7 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.3.4';
+    return '0.3.5';
   }
 }
 
