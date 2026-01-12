@@ -36,6 +36,8 @@ export class MembershipService {
     this.getCancelReasons = this.getCancelReasons.bind(this);
     this.updateCancelReason = this.updateCancelReason.bind(this);
     this.deleteCancelReason = this.deleteCancelReason.bind(this);
+
+    this.getMyMemberships = this.getMyMemberships.bind(this);
   }
 
   async createMembershipType(
@@ -211,5 +213,15 @@ export class MembershipService {
       url: `/memberships/cancellation-reasons/${reasonId}`,
       jwt,
     });
+  }
+
+  async getMyMemberships(
+    jwt: string,
+  ): Promise<DataResponse<ClientMembershipItem>> {
+    const response = await this.client.get({
+      url: '/client-memberships/me',
+      jwt,
+    });
+    return response as unknown as DataResponse<ClientMembershipItem>;
   }
 }

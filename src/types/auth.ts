@@ -8,6 +8,7 @@ export type LoginRequest = {
   email: string;
   password: string;
   context?: string;
+  device_token?: string;
 };
 
 export type LoginResponse = {

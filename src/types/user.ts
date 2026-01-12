@@ -92,3 +92,13 @@ export type UserPaginationOptions = {
 export type QrToken = {
   token: string;
 };
+
+export type MedicalProfile = {
+  allergies: string;
+  blood_type: string;
+  emergency_contact: string;
+  medical_conditions: string;
+  medical_risks: string;
+  medications: string;
+  warnings: string;
+};

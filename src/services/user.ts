@@ -9,6 +9,7 @@ import type {
   UpdateUserStaffRequest,
   QrToken,
   PaginatedTotal,
+  MedicalProfile,
 } from '@/types';
 
 export class UserService {
@@ -28,6 +29,11 @@ export class UserService {
     this.deleteUser = this.deleteUser.bind(this);
     this.resendActivateOtp = this.resendActivateOtp.bind(this);
     this.UpgradePassword = this.UpgradePassword.bind(this);
+
+    //medical
+    this.createMedicalProfile = this.createMedicalProfile.bind(this);
+    this.getMedicalProfile = this.getMedicalProfile.bind(this);
+    this.updateMedicalProfile = this.updateMedicalProfile.bind(this);
   }
 
   async getStaffUsers(
@@ -159,6 +165,40 @@ export class UserService {
         new_password: newPassword,
         confirm_password: confirmPassword,
       },
+    });
+  }
+
+  //medical
+  async createMedicalProfile(
+    userId: string,
+    data: MedicalProfile,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/clients/${userId}/medical-info`,
+      jwt,
+      data,
+    });
+  }
+  async getMedicalProfile(
+    userId: string,
+    jwt: string,
+  ): Promise<DataResponse<MedicalProfile>> {
+    const response = await this.client.get({
+      url: `/clients/${userId}/medical-info`,
+      jwt,
+    });
+    return response as unknown as DataResponse<MedicalProfile>;
+  }
+  async updateMedicalProfile(
+    userId: string,
+    data: MedicalProfile,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.put({
+      url: `/clients/${userId}/medical-info`,
+      jwt,
+      data,
     });
   }
 }

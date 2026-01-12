@@ -61,6 +61,7 @@ export class ReportService {
     this.classOccupancyChart = this.classOccupancyChart.bind(this);
     this.financialSummary = this.financialSummary.bind(this);
     this.salesByDemography = this.salesByDemography.bind(this);
+    this.churnRateKPI = this.churnRateKPI.bind(this);
   }
   async mostUsedServices(
     jwt: string,
@@ -503,5 +504,16 @@ export class ReportService {
       },
     });
     return response as unknown as DataResponse<ChartData[]>;
+  }
+  async churnRateKPI(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<KPICard>> {
+    const response = await this.client.get({
+      url: '/reports/kpi/churn-rate',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<KPICard>;
   }
 }

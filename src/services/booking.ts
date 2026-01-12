@@ -37,7 +37,7 @@ export class BookingService {
 
   async cancelBooking(bookingId: string, jwt: string): Promise<void> {
     await this.client.patch({
-      url: `/booking/${bookingId}/cancel`,
+      url: `/bookings/${bookingId}/cancel`,
       jwt,
     });
   }
