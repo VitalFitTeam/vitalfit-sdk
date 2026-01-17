@@ -21,10 +21,16 @@ export class NotificationService {
 
   async getNotifications(
     jwt: string,
+    { page = 10, limit = 10, sort = 'desc' }: PaginationRequest,
   ): Promise<DataResponse<NotificationResponse[]>> {
     const response = await this.client.get({
       url: '/notifications',
       jwt,
+      params: {
+        page,
+        limit,
+        sort,
+      },
     });
     return response as unknown as DataResponse<NotificationResponse[]>;
   }
