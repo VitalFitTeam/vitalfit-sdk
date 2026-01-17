@@ -1,4 +1,8 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig } from 'axios';
+import axios, {
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type ResponseType,
+} from 'axios';
 import { BASE_URL, DEV_URL } from './settings';
 import { APIError } from './errors';
 import type { Pagination } from './types';
@@ -8,6 +12,7 @@ export type ClientConfig = {
   jwt?: string;
   data?: object;
   params?: object;
+  responseType?: ResponseType;
 };
 
 interface FailedRequest {
@@ -139,6 +144,7 @@ export class Client {
       data: config.data,
       params: config.params,
       headers: {},
+      responseType: config.responseType,
     };
 
     if (tokenToUse && axiosConfig.headers) {
@@ -198,5 +204,57 @@ export class Client {
   }
   async delete(config: ClientConfig) {
     return this.call('delete', config);
+  }
+
+  async download(
+    config: ClientConfig,
+  ): Promise<{ blob: Blob; filename?: string }> {
+    const tokenToUse = config.jwt || this.accessToken;
+
+    const axiosConfig: AxiosRequestConfig = {
+      method: 'get',
+      url: config.url,
+      params: config.params,
+      headers: {},
+      responseType: 'blob',
+    };
+
+    if (tokenToUse && axiosConfig.headers) {
+      axiosConfig.headers['Authorization'] = `Bearer ${tokenToUse}`;
+    }
+
+    try {
+      const response = await this.client.request(axiosConfig);
+
+      let filename: string | undefined;
+      const disposition = response.headers['content-disposition'];
+      if (disposition) {
+        const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(
+          disposition,
+        );
+        if (matches != null && matches[1]) {
+          filename = matches[1].replace(/['"]/g, '');
+        }
+      }
+
+      return { blob: response.data, filename };
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response?.data instanceof Blob) {
+        // Si es un error y la respuesta es un blob, intentamos leer el JSON del blob
+        const errorText = await error.response.data.text();
+        try {
+          const errorJson = JSON.parse(errorText);
+          const errorMessage = errorJson.error || 'Ocurrió un error inesperado';
+          throw new APIError([errorMessage], error.response.status);
+        } catch (e) {
+          // Si no es JSON válido, lanzamos el error genérico
+          throw new APIError(
+            ['Error en la descarga del archivo'],
+            error.response.status,
+          );
+        }
+      }
+      throw new Error(error as string);
+    }
   }
 }
