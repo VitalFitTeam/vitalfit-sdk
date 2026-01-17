@@ -10,6 +10,7 @@ import type {
   QrToken,
   PaginatedTotal,
   MedicalProfile,
+  BlockUserRequest,
 } from '@/types';
 
 export class UserService {
@@ -29,6 +30,7 @@ export class UserService {
     this.deleteUser = this.deleteUser.bind(this);
     this.resendActivateOtp = this.resendActivateOtp.bind(this);
     this.UpgradePassword = this.UpgradePassword.bind(this);
+    this.blockUser = this.blockUser.bind(this);
 
     //medical
     this.createMedicalProfile = this.createMedicalProfile.bind(this);
@@ -165,6 +167,18 @@ export class UserService {
         new_password: newPassword,
         confirm_password: confirmPassword,
       },
+    });
+  }
+
+  async blockUser(
+    userId: string,
+    data: BlockUserRequest,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.put({
+      url: `/user/${userId}/block`,
+      jwt,
+      data,
     });
   }
 

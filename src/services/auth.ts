@@ -93,6 +93,7 @@ export class AuthService {
     email,
     password,
     context,
+    device_token,
   }: LoginRequest): Promise<LoginResponse> {
     const response = await this.client.post({
       url: '/auth/login',
@@ -100,6 +101,7 @@ export class AuthService {
         email,
         password,
         context,
+        device_token,
       },
     });
     return response as unknown as LoginResponse;

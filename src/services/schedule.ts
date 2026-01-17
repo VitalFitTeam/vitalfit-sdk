@@ -16,15 +16,22 @@ export class ScheduleService {
     this.UpdateClass = this.UpdateClass.bind(this);
     this.DeleteClass = this.DeleteClass.bind(this);
     this.GetClassByID = this.GetClassByID.bind(this);
+    this.GetClassesByInstructor = this.GetClassesByInstructor.bind(this);
   }
 
   async ListBranchesClass(
     branchID: string,
     jwt: string,
+    month?: number,
+    year?: number,
   ): Promise<DataResponse<BranchClassInfo[]>> {
     const response = await this.client.get({
       url: `/branches/${branchID}/schedule`,
       jwt,
+      params: {
+        month,
+        year,
+      },
     });
     return response as unknown as DataResponse<BranchClassInfo[]>;
   }
@@ -67,5 +74,23 @@ export class ScheduleService {
       url: `/schedule/${classID}`,
       jwt,
     });
+  }
+
+  async GetClassesByInstructor(
+    jwt: string,
+    userId?: string,
+    month?: number,
+    year?: number,
+  ): Promise<DataResponse<BranchClassInfo[]>> {
+    const response = await this.client.get({
+      url: '/schedule/instructor',
+      jwt,
+      params: {
+        user_id: userId,
+        month,
+        year,
+      },
+    });
+    return response as unknown as DataResponse<BranchClassInfo[]>;
   }
 }

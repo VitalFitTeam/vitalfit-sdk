@@ -2,6 +2,7 @@ import type {
   AttendanceHistory,
   CheckIn,
   CheckInResponse,
+  DataResponse,
   PaginatedTotal,
   PaginationRequest,
   ServiceUsage,
@@ -16,6 +17,7 @@ export class AccessService {
     this.getClientAttendanceHistory =
       this.getClientAttendanceHistory.bind(this);
     this.getClientServiceUsage = this.getClientServiceUsage.bind(this);
+    this.getClassAttendanceHistory = this.getClassAttendanceHistory.bind(this);
   }
 
   async checkIn(jwt: string, data: CheckIn): Promise<CheckInResponse> {
@@ -67,5 +69,24 @@ export class AccessService {
       },
     });
     return response as unknown as PaginatedTotal<ServiceUsage[]>;
+  }
+
+  async getClassAttendanceHistory(
+    jwt: string,
+    classId: string,
+    start?: string,
+    end?: string,
+    status?: 'Attended' | 'NoShow' | 'Cancelled',
+  ): Promise<DataResponse<AttendanceHistory[]>> {
+    const response = await this.client.get({
+      url: `/access/classes/${classId}/attendance`,
+      jwt,
+      params: {
+        start_date: start,
+        end_date: end,
+        status,
+      },
+    });
+    return response as unknown as DataResponse<AttendanceHistory[]>;
   }
 }

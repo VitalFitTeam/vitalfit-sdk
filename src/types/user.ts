@@ -42,6 +42,8 @@ export type User = {
   ClientProfile: ClientProfile;
   role_id: string;
   role: Role;
+  category?: string;
+  has_active_membership?: boolean;
   client_membership?: ClientMembership;
   created_at: string;
   updated_at: string;
@@ -101,4 +103,8 @@ export type MedicalProfile = {
   medical_risks: string;
   medications: string;
   warnings: string;
+};
+
+export type BlockUserRequest = {
+  block_justification: string;
 };
