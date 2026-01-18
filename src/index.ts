@@ -87,7 +87,7 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.3.12';
+    return '0.3.13';
   }
 }
 

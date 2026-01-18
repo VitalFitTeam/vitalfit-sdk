@@ -71,4 +71,5 @@ export type AssignedClientResponse = {
   email: string;
   phone: string;
   total_bookings: number;
+  profile_picture_url: string;
 };
