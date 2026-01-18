@@ -125,8 +125,8 @@ export class InstructorService {
   }
 
   async getAssignedClients(
-    instructorId: string,
     jwt: string,
+    instructorId?: string,
     { page = 1, limit = 10, sort = 'desc', search }: PaginationRequest = {},
   ): Promise<PaginatedTotal<AssignedClientResponse[]>> {
     const response = await this.client.get({

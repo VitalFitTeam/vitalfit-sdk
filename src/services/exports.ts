@@ -30,6 +30,7 @@ export class ExportsService {
     start?: string,
     end?: string,
     branchId?: string,
+    format?: 'csv' | 'excel' | 'pdf',
   ): Promise<DownloadResponse> {
     return await this.client.download({
       url: '/reports/export/financial',
@@ -38,23 +39,20 @@ export class ExportsService {
         start,
         end,
         branch_id: branchId,
+        type: format,
       },
     });
   }
 
   async exportClientsReport(
     jwt: string,
-    start?: string,
-    end?: string,
-    branchId?: string,
+    format?: 'csv' | 'excel' | 'pdf',
   ): Promise<DownloadResponse> {
     return await this.client.download({
       url: '/reports/export/clients',
       jwt,
       params: {
-        start,
-        end,
-        branch_id: branchId,
+        type: format,
       },
     });
   }
@@ -64,6 +62,7 @@ export class ExportsService {
     start?: string,
     end?: string,
     branchId?: string,
+    format?: 'csv' | 'excel' | 'pdf',
   ): Promise<DownloadResponse> {
     return await this.client.download({
       url: '/reports/export/sales',
@@ -72,6 +71,7 @@ export class ExportsService {
         start,
         end,
         branch_id: branchId,
+        type: format,
       },
     });
   }
