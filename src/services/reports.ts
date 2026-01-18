@@ -43,6 +43,8 @@ export class ReportService {
     this.instructorMonthlyClassesCount =
       this.instructorMonthlyClassesCount.bind(this);
     this.instructorClassesToday = this.instructorClassesToday.bind(this);
+    this.instructorStudentsToday = this.instructorStudentsToday.bind(this);
+    this.instructorAttendanceRate = this.instructorAttendanceRate.bind(this);
     this.weeklyRevenueKPI = this.weeklyRevenueKPI.bind(this);
     this.monthlyRecurringRevenueKPI =
       this.monthlyRecurringRevenueKPI.bind(this);
@@ -305,6 +307,20 @@ export class ReportService {
       jwt,
     });
     return response as unknown as DataResponse<ClassScheduleItem[]>;
+  }
+  async instructorStudentsToday(jwt: string): Promise<DataResponse<number>> {
+    const response = await this.client.get({
+      url: '/reports/instructors/students-today',
+      jwt,
+    });
+    return response as unknown as DataResponse<number>;
+  }
+  async instructorAttendanceRate(jwt: string): Promise<DataResponse<number>> {
+    const response = await this.client.get({
+      url: '/reports/instructors/attendance-rate',
+      jwt,
+    });
+    return response as unknown as DataResponse<number>;
   }
   async weeklyRevenueKPI(
     jwt: string,
