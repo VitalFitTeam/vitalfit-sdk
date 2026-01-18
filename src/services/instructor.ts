@@ -1,4 +1,5 @@
 import type {
+  AssignedClientResponse,
   Instructor,
   DataResponse,
   InstructorDataList,
@@ -7,6 +8,7 @@ import type {
   Specialty,
   BranchInstructorInfo,
   PaginatedTotal,
+  PaginationRequest,
   InstructorsSummary,
 } from '@/types';
 import { Client } from '../client';
@@ -25,6 +27,7 @@ export class InstructorService {
     this.addSpecialty = this.addSpecialty.bind(this);
     this.removeSpecialty = this.removeSpecialty.bind(this);
 
+    this.getAssignedClients = this.getAssignedClients.bind(this);
     this.addBranchInstructor = this.addBranchInstructor.bind(this);
     this.removeBranchInstructor = this.removeBranchInstructor.bind(this);
     this.getBranchInstructors = this.getBranchInstructors.bind(this);
@@ -119,6 +122,24 @@ export class InstructorService {
       url: `/instructor/${instructorId}/specialty/${specialtyId}`,
       jwt,
     });
+  }
+
+  async getAssignedClients(
+    instructorId: string,
+    jwt: string,
+    { page = 1, limit = 10, sort = 'desc', search }: PaginationRequest = {},
+  ): Promise<PaginatedTotal<AssignedClientResponse[]>> {
+    const response = await this.client.get({
+      url: `/instructor/${instructorId}/clients`,
+      jwt,
+      params: {
+        page,
+        limit,
+        sort,
+        search,
+      },
+    });
+    return response as unknown as PaginatedTotal<AssignedClientResponse[]>;
   }
 
   async addBranchInstructor(

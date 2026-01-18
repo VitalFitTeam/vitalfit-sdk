@@ -63,3 +63,12 @@ export type InstructorsSummary = {
   actives: number;
   blocked: number;
 };
+
+export type AssignedClientResponse = {
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  total_bookings: number;
+};
