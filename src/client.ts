@@ -206,6 +206,41 @@ export class Client {
     return this.call('delete', config);
   }
 
+  async upload(config: ClientConfig): Promise<any> {
+    const tokenToUse = config.jwt || this.accessToken;
+
+    const axiosConfig: AxiosRequestConfig = {
+      method: 'post',
+      url: config.url,
+      data: config.data,
+      params: config.params,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+
+    if (tokenToUse && axiosConfig.headers) {
+      axiosConfig.headers['Authorization'] = `Bearer ${tokenToUse}`;
+    }
+
+    try {
+      const response = await this.client.request(axiosConfig);
+      return response.data;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.error;
+        if (typeof errorMessage === 'string') {
+          throw new APIError([errorMessage], error.response?.status ?? 500);
+        }
+        throw new APIError(
+          ['Ocurrió un error inesperado'],
+          error.response?.status ?? 500,
+        );
+      }
+      throw new Error(error as string);
+    }
+  }
+
   async download(
     config: ClientConfig,
   ): Promise<{ blob: Blob; filename?: string }> {

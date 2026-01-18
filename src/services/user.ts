@@ -31,6 +31,7 @@ export class UserService {
     this.resendActivateOtp = this.resendActivateOtp.bind(this);
     this.UpgradePassword = this.UpgradePassword.bind(this);
     this.blockUser = this.blockUser.bind(this);
+    this.enrollFace = this.enrollFace.bind(this);
 
     //medical
     this.createMedicalProfile = this.createMedicalProfile.bind(this);
@@ -189,6 +190,21 @@ export class UserService {
       jwt,
       data,
     });
+  }
+
+  async enrollFace(
+    jwt: string,
+    photo: File | Blob,
+  ): Promise<{ message: string }> {
+    const formData = new FormData();
+    formData.append('selfie', photo);
+
+    const response = await this.client.upload({
+      url: '/face-auth/enroll',
+      jwt,
+      data: formData,
+    });
+    return response as unknown as { message: string };
   }
 
   //medical

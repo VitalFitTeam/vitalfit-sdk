@@ -15,6 +15,7 @@ export class AccessService {
     this.client = client;
     this.checkIn = this.checkIn.bind(this);
     this.checkInManual = this.checkInManual.bind(this);
+    this.checkInFace = this.checkInFace.bind(this);
     this.getClientAttendanceHistory =
       this.getClientAttendanceHistory.bind(this);
     this.getClientServiceUsage = this.getClientServiceUsage.bind(this);
@@ -35,6 +36,23 @@ export class AccessService {
       url: '/access/check-in/manual',
       jwt,
       data,
+    });
+    return response as unknown as CheckInResponse;
+  }
+
+  async checkInFace(
+    jwt: string,
+    branchId: string,
+    photo: File | Blob,
+  ): Promise<CheckInResponse> {
+    const formData = new FormData();
+    formData.append('branch_id', branchId);
+    formData.append('checkin_photo', photo);
+
+    const response = await this.client.upload({
+      url: '/access/check-in/face',
+      jwt,
+      data: formData,
     });
     return response as unknown as CheckInResponse;
   }

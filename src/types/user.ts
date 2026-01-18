@@ -46,6 +46,7 @@ export type User = {
   role: Role;
   category?: string;
   has_active_membership?: boolean;
+  face_auth_enabled: boolean;
   client_membership?: ClientMembership;
   created_at: string;
   updated_at: string;
