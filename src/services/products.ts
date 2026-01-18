@@ -1,5 +1,6 @@
 import { Client } from '../client';
 import type {
+  ClientBalance,
   CreateService,
   DataResponse,
   ServiceCategoryInfo,
@@ -21,6 +22,7 @@ export class ProductsService {
     this.createService = this.createService.bind(this);
     this.getServices = this.getServices.bind(this);
     this.getSummary = this.getSummary.bind(this);
+    this.getClientBalances = this.getClientBalances.bind(this);
     this.getServiceByID = this.getServiceByID.bind(this);
     this.updateService = this.updateService.bind(this);
     this.deleteService = this.deleteService.bind(this);
@@ -70,6 +72,20 @@ export class ProductsService {
       jwt,
     });
     return response as unknown as DataResponse<ServicesSummary>;
+  }
+
+  async getClientBalances(
+    jwt: string,
+    userId?: string,
+  ): Promise<DataResponse<ClientBalance[]>> {
+    const response = await this.client.get({
+      url: '/services/balances',
+      jwt,
+      params: {
+        user_id: userId,
+      },
+    });
+    return response as unknown as DataResponse<ClientBalance[]>;
   }
 
   async getServiceByID(

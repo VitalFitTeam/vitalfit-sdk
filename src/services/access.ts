@@ -14,6 +14,7 @@ export class AccessService {
   constructor(client: Client) {
     this.client = client;
     this.checkIn = this.checkIn.bind(this);
+    this.checkInManual = this.checkInManual.bind(this);
     this.getClientAttendanceHistory =
       this.getClientAttendanceHistory.bind(this);
     this.getClientServiceUsage = this.getClientServiceUsage.bind(this);
@@ -23,6 +24,15 @@ export class AccessService {
   async checkIn(jwt: string, data: CheckIn): Promise<CheckInResponse> {
     const response = await this.client.post({
       url: '/access/check-in',
+      jwt,
+      data,
+    });
+    return response as unknown as CheckInResponse;
+  }
+
+  async checkInManual(jwt: string, data: CheckIn): Promise<CheckInResponse> {
+    const response = await this.client.post({
+      url: '/access/check-in/manual',
       jwt,
       data,
     });

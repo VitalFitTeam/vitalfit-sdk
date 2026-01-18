@@ -1,3 +1,5 @@
+import type { ServiceFullDetail } from './products';
+
 export type ClientProfile = {
   user_id: string;
   qr_code: string;
@@ -107,4 +109,12 @@ export type MedicalProfile = {
 
 export type BlockUserRequest = {
   block_justification: string;
+};
+
+export type ClientBalance = {
+  user_id: string;
+  service_id: string;
+  balance: number;
+  updated_at: string;
+  service?: ServiceFullDetail;
 };
