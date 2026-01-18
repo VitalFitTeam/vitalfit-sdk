@@ -1,6 +1,7 @@
 export type CheckIn = {
   branch_id: string;
-  qr_jwt: string;
+  qr_jwt?: string;
+  user_id?: string;
 };
 
 export type CheckInResponse = {
