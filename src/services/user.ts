@@ -39,7 +39,13 @@ export class UserService {
   }
 
   async getStaffUsers(
-    { search, role }: UserPaginationOptions,
+    {
+      page = 1,
+      limit = 10,
+      sort = 'desc',
+      search,
+      role,
+    }: UserPaginationOptions,
     jwt: string,
   ): Promise<DataResponse<User[]>> {
     const response = await this.client.get({
@@ -48,6 +54,9 @@ export class UserService {
       params: {
         search,
         role,
+        page,
+        limit,
+        sort,
       },
     });
 
