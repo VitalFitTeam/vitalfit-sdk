@@ -10,6 +10,7 @@ import type {
   HeatmapPoint,
   KPICard,
   RecentAttendanceItem,
+  RFMMetric,
   StackedChartData,
   TopBranch,
   TotalSalesStats,
@@ -64,6 +65,7 @@ export class ReportService {
     this.financialSummary = this.financialSummary.bind(this);
     this.salesByDemography = this.salesByDemography.bind(this);
     this.churnRateKPI = this.churnRateKPI.bind(this);
+    this.rfmAnalysis = this.rfmAnalysis.bind(this);
   }
   async mostUsedServices(
     jwt: string,
@@ -531,5 +533,16 @@ export class ReportService {
       params: branchId ? { branch_id: branchId } : undefined,
     });
     return response as unknown as DataResponse<KPICard>;
+  }
+  async rfmAnalysis(
+    jwt: string,
+    branchId?: string,
+  ): Promise<DataResponse<RFMMetric[]>> {
+    const response = await this.client.get({
+      url: '/reports/analysis/rfm',
+      jwt,
+      params: branchId ? { branch_id: branchId } : undefined,
+    });
+    return response as unknown as DataResponse<RFMMetric[]>;
   }
 }

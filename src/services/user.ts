@@ -31,6 +31,7 @@ export class UserService {
     this.resendActivateOtp = this.resendActivateOtp.bind(this);
     this.UpgradePassword = this.UpgradePassword.bind(this);
     this.blockUser = this.blockUser.bind(this);
+    this.unblockUser = this.unblockUser.bind(this);
     this.enrollFace = this.enrollFace.bind(this);
 
     //medical
@@ -189,6 +190,13 @@ export class UserService {
       url: `/user/${userId}/block`,
       jwt,
       data,
+    });
+  }
+
+  async unblockUser(userId: string, jwt: string): Promise<void> {
+    await this.client.put({
+      url: `/user/${userId}/unblock`,
+      jwt,
     });
   }
 

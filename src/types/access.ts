@@ -9,6 +9,7 @@ export type CheckInResponse = {
   check_in_time: string;
   message: string;
   service_name: string;
+  user_id: string;
 };
 
 export type ServiceUsage = {

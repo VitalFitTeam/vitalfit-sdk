@@ -111,3 +111,17 @@ export type CohortRetention = {
   cohort_size: number;
   retention: number[];
 };
+
+export type RFMMetric = {
+  user_id: string;
+  name: string;
+  email: string;
+  last_purchase: string | null;
+  recency_days: number;
+  frequency: number;
+  monetary_total: number;
+  r_score: number;
+  f_score: number;
+  m_score: number;
+  segment: string;
+};
