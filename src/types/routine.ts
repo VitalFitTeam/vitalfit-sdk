@@ -1,4 +1,5 @@
 import type { PaginationRequest } from './utils';
+import type { User } from './user';
 
 export type MuscleGroup =
   | 'Chest'
@@ -57,6 +58,8 @@ export type UserRoutineResponse = {
   assigned_date: string;
   due_date?: string;
   status: string;
+  completion_count: number;
+  last_completed_at?: string;
 };
 
 export type Exercise = {
@@ -87,6 +90,7 @@ export type Routine = {
   name: string;
   description: string;
   creator_id?: string;
+  creator?: User;
   level: RoutineLevel | string;
   exercises?: RoutineExercise[];
   created_at: string;

@@ -26,6 +26,7 @@ export class RoutineService {
     this.getInstructorRoutines = this.getInstructorRoutines.bind(this);
     this.getRoutineById = this.getRoutineById.bind(this);
     this.getAllRoutines = this.getAllRoutines.bind(this);
+    this.markRoutineCompletion = this.markRoutineCompletion.bind(this);
   }
 
   async createRoutine(
@@ -171,5 +172,15 @@ export class RoutineService {
       },
     });
     return response as unknown as PaginatedTotal<Routine[]>;
+  }
+
+  async markRoutineCompletion(
+    userRoutineId: string,
+    jwt: string,
+  ): Promise<void> {
+    await this.client.post({
+      url: `/routines/my-routines/${userRoutineId}/complete`,
+      jwt,
+    });
   }
 }
