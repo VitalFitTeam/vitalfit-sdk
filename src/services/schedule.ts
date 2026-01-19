@@ -24,6 +24,7 @@ export class ScheduleService {
     jwt: string,
     month?: number,
     year?: number,
+    date?: string,
   ): Promise<DataResponse<BranchClassInfo[]>> {
     const response = await this.client.get({
       url: `/branches/${branchID}/schedule`,
@@ -31,6 +32,7 @@ export class ScheduleService {
       params: {
         month,
         year,
+        date,
       },
     });
     return response as unknown as DataResponse<BranchClassInfo[]>;
@@ -81,6 +83,7 @@ export class ScheduleService {
     userId?: string,
     month?: number,
     year?: number,
+    date?: string,
   ): Promise<DataResponse<BranchClassInfo[]>> {
     const response = await this.client.get({
       url: '/schedule/instructor',
@@ -89,6 +92,7 @@ export class ScheduleService {
         user_id: userId,
         month,
         year,
+        date,
       },
     });
     return response as unknown as DataResponse<BranchClassInfo[]>;
