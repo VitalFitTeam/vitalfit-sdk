@@ -69,6 +69,10 @@ export type GetUserResponse = {
   role_id: string;
   role_name: string;
   user_id: string;
+  category?: string;
+  has_active_membership: boolean;
+  is_validated: boolean;
+  status: string;
 };
 
 export type UpdateUserRequest = {

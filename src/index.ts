@@ -22,6 +22,7 @@ import {
   NotificationService,
   ExportsService,
   RoutineService,
+  LLMService,
 } from './services';
 import { MarketingService } from './services/marketing';
 import { ProductsService } from './services/products';
@@ -53,6 +54,7 @@ export class VitalFit {
   notification: NotificationService;
   exports: ExportsService;
   routine: RoutineService;
+  llm: LLMService;
 
   constructor(isDevMode: boolean, origin?: string) {
     this.client = new Client(isDevMode, origin);
@@ -80,6 +82,7 @@ export class VitalFit {
     this.notification = new NotificationService(this.client);
     this.exports = new ExportsService(this.client);
     this.routine = new RoutineService(this.client);
+    this.llm = new LLMService(this.client);
   }
 
   static getInstance(isDevMode = false): VitalFit {
@@ -90,7 +93,7 @@ export class VitalFit {
   }
 
   version(): string {
-    return '0.4.3';
+    return '0.4.4';
   }
 }
 
