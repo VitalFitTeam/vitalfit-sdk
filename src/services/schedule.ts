@@ -84,6 +84,7 @@ export class ScheduleService {
     month?: number,
     year?: number,
     date?: string,
+    branchId?: string,
   ): Promise<DataResponse<BranchClassInfo[]>> {
     const response = await this.client.get({
       url: '/schedule/instructor',
@@ -93,6 +94,7 @@ export class ScheduleService {
         month,
         year,
         date,
+        branch_id: branchId,
       },
     });
     return response as unknown as DataResponse<BranchClassInfo[]>;

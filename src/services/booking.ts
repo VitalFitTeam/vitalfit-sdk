@@ -45,10 +45,18 @@ export class BookingService {
   async getClientBooking(
     userID: string,
     jwt: string,
+    month?: number,
+    year?: number,
+    date?: string,
   ): Promise<DataResponse<ClientBookingResponse[]>> {
     const response = await this.client.get({
       url: `/bookings/client/${userID}`,
       jwt,
+      params: {
+        month,
+        year,
+        date,
+      },
     });
     return response as unknown as DataResponse<ClientBookingResponse[]>;
   }
@@ -57,10 +65,18 @@ export class BookingService {
     branchID: string,
     userID: string,
     jwt: string,
+    month?: number,
+    year?: number,
+    date?: string,
   ): Promise<DataResponse<BranchScheduleResponse[]>> {
     const response = await this.client.get({
       url: `/schedule/branch/${branchID}/client/${userID}`,
       jwt,
+      params: {
+        month,
+        year,
+        date,
+      },
     });
     return response as unknown as DataResponse<BranchScheduleResponse[]>;
   }
