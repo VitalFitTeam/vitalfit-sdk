@@ -127,3 +127,11 @@ export type CreateFiscalDocumentRequest = {
   name: string;
   prefix: string;
 };
+
+export type CreateCheckoutPayload = {
+  invoice_id: string;
+};
+
+export type CheckoutResponse = {
+  url: string;
+};

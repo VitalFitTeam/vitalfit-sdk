@@ -1,7 +1,9 @@
 import type {
   AddPaymentToInvoicePayload,
   AddPaymentToInvoiceResponse,
+  CheckoutResponse,
   ClientInvoice,
+  CreateCheckoutPayload,
   CreateFiscalDocumentRequest,
   CreateInvoicePayload,
   CreateInvoiceResponse,
@@ -37,6 +39,7 @@ export class BillingService {
     this.getFiscalDocumentById = this.getFiscalDocumentById.bind(this);
     this.updateFiscalDocument = this.updateFiscalDocument.bind(this);
     this.deleteFiscalDocument = this.deleteFiscalDocument.bind(this);
+    this.createCheckoutSession = this.createCheckoutSession.bind(this);
   }
   async getTaxRateByBranch(jwt: string, branchId: string): Promise<TaxRate> {
     const response = await this.client.get({
@@ -210,5 +213,17 @@ export class BillingService {
       url: `/billing/fiscal-document-types/${id}`,
       jwt,
     });
+  }
+
+  async createCheckoutSession(
+    data: CreateCheckoutPayload,
+    jwt: string,
+  ): Promise<CheckoutResponse> {
+    const response = await this.client.post({
+      url: '/billing/checkout',
+      jwt,
+      data,
+    });
+    return response as unknown as CheckoutResponse;
   }
 }
